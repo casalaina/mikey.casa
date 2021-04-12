@@ -4,6 +4,6 @@
   status = 200
 
 [build]
-  command = "npm run build"
+  command = "cd ./functions/render/ && npm install && cd ../../ && npm run build"
   publish = "build/"
-  functions = "functions/render/"
+  functions = "functions/"
