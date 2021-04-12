@@ -1,5 +1,5 @@
 {
-	"name": "mikey.casa/laina",
+	"name": "mikey.casa",
 	"version": "1.0.0",
 	"scripts": {
 		"dev": "svelte-kit dev",
