@@ -1,7 +1,4 @@
-[[redirects]] 
-  from = "/*" 
-  to = "/laina.html" 
-  status = 200
-
 [build]
   command = "npm run build"
+  publish = "build/"
+  functions = "functions/"
