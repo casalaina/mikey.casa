@@ -15,7 +15,7 @@
 <script>
 	export let prismic;
 	import { onMount } from 'svelte';
-	import videoSrc from '../introVideo.mp4';
+	import videoSrc from '../assets/introVideo.mp4';
 
 	// finger variables
 	let lines = [];
@@ -270,7 +270,7 @@
 		<div id="fingerWrap" bind:this={fingerWrap} class={active ? 'active' : ''} />
 		<div id="mobilePopUp" bind:this={mobilePopUp} class={mobilePopUpActive ? 'active' : ''}>
 			<div class="inner">
-				<a role="button" class="close" />
+				<div role="button" class="close" href />
 				<span class="emoji">🤔</span><br />Hmmm. WeTransfer is not terribly mobile-friendly, so to
 				try out these links, you'll need to hop on a laptop. Sorry! In the meantime, you can read
 				something I wrote about WeTransfer wallpapers
@@ -342,6 +342,7 @@
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
 		opacity: 0;
 		transition: opacity 0.5s;
 		display: none;
