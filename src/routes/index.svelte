@@ -229,11 +229,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<title>Mikey Casalaina</title>
 
-	<link rel="apple-touch-icon" sizes="180x180" href="./static/favicon/apple-touch-icon.png" />
-	<link rel="icon" type="image/png" sizes="32x32" href="./static/favicon/favicon-32x32.png" />
-	<link rel="icon" type="image/png" sizes="16x16" href="./static/favicon/favicon-16x16.png" />
-	<link rel="mask-icon" href="./static/favicon/safari-pinned-tab.svg" color="#000000" />
-	<link rel="shortcut icon" href="./static/favicon/favicon.ico" />
+	<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png" />
+	<link rel="mask-icon" href="../favicon/safari-pinned-tab.svg" color="#000000" />
+	<link rel="shortcut icon" href="../favicon/favicon.ico" />
 	<meta name="msapplication-TileColor" content="#da532c" />
 	<meta name="theme-color" content="#ffffff" />
 </svelte:head>
@@ -449,7 +449,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background-image: url(./static/overlay.svg);
+		background-image: url('../assets/overlay.svg');
 		background-size: cover;
 		background-color: black;
 	}
@@ -463,7 +463,7 @@
 		height: 5vw;
 		min-width: 80px;
 		min-height: 80px;
-		background-image: url(./static/finger.svg);
+		background-image: url('../assets/finger.svg');
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-position: center center;
@@ -599,7 +599,7 @@
 		text-decoration: none;
 		background-color: transparent;
 		-webkit-text-decoration-skip: objects;
-		background-image: url('./static/wavy--red.svg');
+		background-image: url('../assets/wavy--red.svg');
 	}
 
 	:global(a:hover) {
@@ -608,23 +608,23 @@
 
 	:global(a:nth-of-type(4n + 0)) {
 		color: #ea6180;
-		background-image: url('./static/wavy--red.svg');
+		background-image: url('../assets/wavy--red.svg');
 	}
 
 	:global(a:nth-of-type(4n + 1)) {
 		color: #f8d68f;
-		background-image: url('./static/wavy--yellow.svg');
+		background-image: url('../assets/wavy--yellow.svg');
 	}
 
 	:global(a:nth-of-type(4n + 2)) {
 		color: #6dc999;
-		background-image: url('./static/wavy--green.svg');
+		background-image: url('../assets/wavy--green.svg');
 	}
 
 	:global(a:nth-of-type(4n + 3)),
 	:global(.blue a) {
 		color: #4db7d0;
-		background-image: url('./static/wavy--blue.svg');
+		background-image: url('../assets/wavy--blue.svg');
 	}
 
 	#mobilePopUp {

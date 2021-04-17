@@ -1,5 +1,5 @@
 const sveltePreprocess = require('svelte-preprocess');
-const netlify = require('@sveltejs/adapter-netlify');
+const netlify = require('@sveltejs/adapter-static');
 const pkg = require('./package.json');
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -17,9 +17,8 @@ module.exports = {
 		target: '#svelte',
 
 		vite: {
-			ssr: {
-				noExternal: ['@prismicio/client']
-			}
+			server: { cors: false },
+			optimizeDeps: { include: ['prismic-dom'] }
 		}
 	}
 };
