@@ -208,7 +208,7 @@
 
 		// Override mobile WeTransfer links
 		if (Browser.isMobile) {
-			let wet = document.querySelectorAll('a.wet');
+			let wet = document.querySelectorAll('.wet a');
 			for (var i = 0; i < wet.length; i++) {
 				wet[i].onclick = function (e) {
 					e.preventDefault();
