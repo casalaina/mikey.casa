@@ -274,12 +274,14 @@
 				<span class="emoji">🤔</span><br />Hmmm. WeTransfer is not terribly mobile-friendly, so to
 				try out these links, you'll need to hop on a laptop. Sorry! In the meantime, you can read
 				something I wrote about WeTransfer wallpapers
-				<a
-					href="https://ideas.bywetransfer.com/story/once-you-start-noticing-the-backgrounds-of-things-it-can-be-hard-to-stop"
-					target="_blank"
-					class="blue"
-					id="mobileLink"
-					bind:this={mobileLink}>here</a
+				<span class="blue">
+					<a
+						href="https://ideas.bywetransfer.com/story/once-you-start-noticing-the-backgrounds-of-things-it-can-be-hard-to-stop"
+						target="_blank"
+						class="blue"
+						id="mobileLink"
+						bind:this={mobileLink}>here</a
+					></span
 				>.
 			</div>
 		</div>
