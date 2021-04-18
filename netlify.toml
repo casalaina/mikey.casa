@@ -1,4 +1,4 @@
 [[redirects]] 
   from = "/*" 
-  to = "/laina.html" 
-  status = 200
+  to = "/laina" 
+  status = 301
