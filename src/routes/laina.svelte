@@ -1,5 +1,5 @@
 <script context="module">
-	import Client from './../../utils/client.js';
+	import Client from '/utils/client.js';
 	import PrismicDom from 'prismic-dom';
 
 	export async function load() {
@@ -16,6 +16,7 @@
 	export let prismic;
 	import { onMount } from 'svelte';
 	import videoSrc from '../assets/introVideo.mp4';
+	import gA from '/utils/gA.svelte';
 
 	// finger variables
 	let lines = [];
@@ -236,7 +237,10 @@
 	<link rel="shortcut icon" href="../favicon/favicon.ico" />
 	<meta name="msapplication-TileColor" content="#da532c" />
 	<meta name="theme-color" content="#ffffff" />
+	<googleAnalytics />
 </svelte:head>
+
+<gA />
 
 <div id="outer" on:mousemove={mouseMove} on:touchmove={touchMove} on:touchend={closePopUp}>
 	<div id="inner" class={ready ? 'visible' : ''}>
