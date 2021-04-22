@@ -1,6 +1,6 @@
 <script>
-	export let stores;
-	export let id = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
+	export let page;
+	let id = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 	if (typeof window !== 'undefined') {
 		window.dataLayer = window.dataLayer || [];
 		window.gtag = function gtag() {
@@ -9,7 +9,6 @@
 		window.gtag('js', new Date());
 		window.gtag('config', id, { send_page_view: false });
 	}
-	const { page } = stores();
 	$: {
 		if (typeof gtag !== 'undefined') {
 			window.gtag('config', id, {

@@ -16,7 +16,8 @@
 	export let prismic;
 	import { onMount } from 'svelte';
 	import videoSrc from '../assets/introVideo.mp4';
-	import gA from '/utils/gA.svelte';
+	import GoogleAnalytics from '/utils/GoogleAnalytics.svelte';
+	import { page } from '$app/stores';
 
 	// finger variables
 	let lines = [];
@@ -237,10 +238,9 @@
 	<link rel="shortcut icon" href="../favicon/favicon.ico" />
 	<meta name="msapplication-TileColor" content="#da532c" />
 	<meta name="theme-color" content="#ffffff" />
-	<googleAnalytics />
 </svelte:head>
 
-<gA />
+<GoogleAnalytics {page} />
 
 <div id="outer" on:mousemove={mouseMove} on:touchmove={touchMove} on:touchend={closePopUp}>
 	<div id="inner" class={ready ? 'visible' : ''}>
