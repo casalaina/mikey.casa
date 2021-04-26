@@ -267,9 +267,7 @@
 			<div id="cursor" bind:this={cursor} />
 		</div>
 		<div id="bgText" class={active ? 'active' : ''}>
-			<div>
-				{@html PrismicDom.RichText.asHtml(prismic.data.content)}
-			</div>
+			<div id="text">Mikey Casalaina</div>
 		</div>
 		<div id="fingerWrap" bind:this={fingerWrap} class={active ? 'active' : ''} />
 		<div id="mobilePopUp" bind:this={mobilePopUp} class={mobilePopUpActive ? 'active' : ''}>
@@ -317,6 +315,7 @@
 		background-color: black;
 		width: 100vw;
 		height: 100vh;
+		cursor: none;
 
 		@media #{$sm} {
 			font-size: 1.25vw;
@@ -339,7 +338,7 @@
 		left: 0;
 		height: calc(var(--vh, 1vh) * 100);
 		position: fixed;
-		background-color: #000000;
+		background-color: #2a19e2;
 		font-size: 2em;
 		overflow: hidden;
 		font-family: urbane, sans-serif;
@@ -369,8 +368,8 @@
 		height: 100%;
 		position: absolute;
 		font-size: 1.1em;
-		background-color: #000;
-		color: #888;
+		background-color: #2a19e2;
+		color: #fff;
 		padding: 3rem 3.5rem;
 		z-index: 1;
 		background-size: cover;
@@ -380,11 +379,14 @@
 		left: 0;
 		opacity: 0.1;
 		transition: opacity 3s;
-		cursor: default;
+		cursor: hidden;
 		user-select: none;
 		-webkit-user-select: none;
 		/* Chrome, Safari, and Opera */
 		-webkit-touch-callout: none;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
 		&.active {
 			opacity: 1;
@@ -418,7 +420,6 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		color: #ea6180;
 		transition: opacity 2.5s;
 		overflow: hidden;
 
@@ -458,7 +459,7 @@
 		bottom: 0;
 		background-image: url('../assets/overlay.svg');
 		background-size: cover;
-		background-color: black;
+		background-color: #2a19e2;
 	}
 
 	#cursor {
@@ -492,7 +493,7 @@
 		z-index: 2;
 		pointer-events: none;
 		background-color: transparent;
-		box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.9), 0 0 200vw 200vw rgba(0, 0, 0, 0.9);
+		box-shadow: inset 0 0 100px 100px rgba(#2a19e2, 0.9), 0 0 200vw 200vw rgba(#2a19e2, 0.9);
 		width: 500px;
 		height: 500px;
 		opacity: 0;
