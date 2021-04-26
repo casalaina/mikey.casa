@@ -1,8 +1,10 @@
 # mikey.casa/laina
 
-My personal website, [mikey.casa/laina](https://mikey.casa/laina). An interactive version of the [Cascading Pointing Hand Emoji Copypasta](https://knowyourmeme.com/memes/cascading-pointing-hand-emoji-copypasta).
+My personal website, [mikey.casa/laina](https://mikey.casa/laina).
 
-Build w/ [SvelteKit](https://github.com/sveltejs/kit)
+An interactive version of the [Cascading Pointing Hand Emoji Copypasta](https://knowyourmeme.com/memes/cascading-pointing-hand-emoji-copypasta).
+
+Built w/ [SvelteKit](https://github.com/sveltejs/kit)
 
 ## Developing
 
@@ -17,7 +19,7 @@ npm run dev -- --open
 
 ## Building
 
-Built using [@sveltejs/adapter-netlify](https://github.com/sveltejs/kit/tree/master/packages/adapter-netlify)
+Prerendered using [@sveltejs/adapter-static](https://github.com/sveltejs/kit/tree/master/packages/adapter-static)
 
 ```
 npm run build
