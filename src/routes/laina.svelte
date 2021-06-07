@@ -245,7 +245,7 @@
 	<meta
 		property="og:description"
 		content="Personal website of Creative Coder, Mikey Casalaina, and an interactive version of the Cascading Pointing Hand Emoji Copypasta" />
-	<meta property="og:image" content="../favicon/thumbnail.jpg" />
+	<meta property="og:image" content="https://mikey.casa/favicon/thumbnail.jpg" />
 
 	<!-- Twitter -->
 	<meta property="twitter:card" content="summary_large_image" />
@@ -254,7 +254,7 @@
 	<meta
 		property="twitter:description"
 		content="Personal website of Creative Coder, Mikey Casalaina, and an interactive version of the Cascading Pointing Hand Emoji Copypasta" />
-	<meta property="twitter:image" content="../favicon/thumbnail.jpg" />
+	<meta property="twitter:image" content="https://mikey.casa/favicon/thumbnail.jpg" />
 
 	<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png" />
 	<link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png" />
