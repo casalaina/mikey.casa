@@ -231,6 +231,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<title>Mikey Casalaina</title>
 
+	<meta property="og:title" content="mikey.casa/laina" />
+	<meta
+		property="og:description"
+		content="Personal website of Mikey Casalaina and interactive version of the Cascading Pointing
+		Hand Emoji Copypasta" />
+	<meta property="og:image" content="../social/thumbnail.jpg" />
+	<meta property="og:url" content="https://mikey.casa/laina" />
+
 	<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png" />
 	<link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png" />
 	<link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png" />
@@ -250,8 +258,7 @@
 			class={active ? 'hide' : ''}
 			bind:this={title}
 			on:click={startClick}
-			on:touchend={startTouch}
-		>
+			on:touchend={startTouch}>
 			<h1>mikey.casa/laina</h1>
 			<video
 				id="video"
@@ -261,8 +268,7 @@
 				muted
 				playsinline
 				disablePictureInPicture="true"
-				bind:this={video}
-			/>
+				bind:this={video} />
 			<div id="overlay" />
 			<div id="cursor" bind:this={cursor} />
 		</div>
@@ -275,18 +281,22 @@
 		<div id="mobilePopUp" bind:this={mobilePopUp} class={mobilePopUpActive ? 'active' : ''}>
 			<div class="inner">
 				<div role="button" class="close" href />
-				<span class="emoji">🤔</span><br />Hmmm. WeTransfer is not terribly mobile-friendly, so to
-				try out these links, you'll need to hop on a laptop. Sorry! In the meantime, you can read
-				something I wrote about WeTransfer wallpapers
+				<span class="emoji">🤔</span>
+				<br />
+				Hmmm. WeTransfer is not terribly mobile-friendly, so to try out these links, you'll need to
+				hop on a laptop. Sorry! In the meantime, you can read something I wrote about WeTransfer
+				wallpapers
 				<span class="blue">
 					<a
 						href="https://ideas.bywetransfer.com/story/once-you-start-noticing-the-backgrounds-of-things-it-can-be-hard-to-stop"
 						target="_blank"
 						class="blue"
 						id="mobileLink"
-						bind:this={mobileLink}>here</a
-					></span
-				>.
+						bind:this={mobileLink}>
+						here
+					</a>
+				</span>
+				.
 			</div>
 		</div>
 	</div>
