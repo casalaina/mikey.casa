@@ -236,7 +236,7 @@
 		property="og:description"
 		content="Personal website of Mikey Casalaina and interactive version of the Cascading Pointing
 		Hand Emoji Copypasta" />
-	<meta property="og:image" content="../social/thumbnail.jpg" />
+	<meta property="og:image" content="../favicon/thumbnail.jpg" />
 	<meta property="og:url" content="https://mikey.casa/laina" />
 
 	<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png" />
