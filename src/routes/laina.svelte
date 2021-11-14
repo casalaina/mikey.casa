@@ -1,22 +1,7 @@
-<script context="module">
-	import Client from '/utils/client.js';
-	import PrismicDom from 'prismic-dom';
-
-	export async function load() {
-		const prismic = await Client.getByUID('main', 'main');
-		return {
-			props: {
-				prismic
-			}
-		};
-	}
-</script>
-
 <script>
-	export let prismic;
 	import { onMount } from 'svelte';
 	import videoSrc from '../assets/introVideo.mp4';
-	import GoogleAnalytics from '/utils/GoogleAnalytics.svelte';
+	import GoogleAnalytics from '../utils/GoogleAnalytics.svelte';
 	import { page } from '$app/stores';
 
 	// finger variables
@@ -236,7 +221,8 @@
 	<meta name="title" content="Mikey Casalaina (mikey.casa/laina)" />
 	<meta
 		name="description"
-		content="Personal website of Creative Coder, Mikey Casalaina, and an interactive version of the Cascading Pointing Hand Emoji Copypasta" />
+		content="Personal website of Creative Coder, Mikey Casalaina, and an interactive version of the Cascading Pointing Hand Emoji Copypasta"
+	/>
 
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website" />
@@ -244,7 +230,8 @@
 	<meta property="og:title" content="Mikey Casalaina (mikey.casa/laina)" />
 	<meta
 		property="og:description"
-		content="Personal website of Creative Coder, Mikey Casalaina, and an interactive version of the Cascading Pointing Hand Emoji Copypasta" />
+		content="Personal website of Creative Coder, Mikey Casalaina, and an interactive version of the Cascading Pointing Hand Emoji Copypasta"
+	/>
 	<meta property="og:image" content="https://mikey.casa/favicon/thumbnail.jpg" />
 
 	<!-- Twitter -->
@@ -253,7 +240,8 @@
 	<meta property="twitter:title" content="Mikey Casalaina (mikey.casa/laina)" />
 	<meta
 		property="twitter:description"
-		content="Personal website of Creative Coder, Mikey Casalaina, and an interactive version of the Cascading Pointing Hand Emoji Copypasta" />
+		content="Personal website of Creative Coder, Mikey Casalaina, and an interactive version of the Cascading Pointing Hand Emoji Copypasta"
+	/>
 	<meta property="twitter:image" content="https://mikey.casa/favicon/thumbnail.jpg" />
 
 	<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png" />
@@ -278,7 +266,34 @@
 		</div>
 		<div id="bgText" class={active ? 'active' : ''}>
 			<div>
-				{@html PrismicDom.RichText.asHtml(prismic.data.content)}
+				<p>I’m not sure who pointed you here, but I’m glad you found the way.</p>
+				<p>I’m Mikey, a developer, designer, and musician living and working in Amsterdam.</p>
+				<p>
+					I currently work at <a href="https://wetransfer.com/">WeTransfer</a>, leading the Creative Engineering team in creating interactives and
+					animations. I’ve worked on stuff like <a target="_blank" rel="noopener" href="https://colorpush.wetransfer.com">this</a>,
+					<span class="wet"
+						><a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/11160943">this</a>,
+						<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/11685998">this</a>, and
+						<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/18127579">a</a>
+						<a target="_blank" rel="noopener" href="https://mikey.wetransfer.com/wallpaper/12725040">ton</a>
+						<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/19374023">more</a>.</span
+					>
+				</p>
+				<p>Previously, I helped found the dev shop <a href="http://looprecur.com/">loop/recur</a>.</p>
+				<p>
+					I make music with the band <a href="http://naiveset.nl/">Naive Set</a>. Here’s
+					<a href="https://www.youtube.com/watch?v=eUuXFB4T23o">a video</a> we did with a giant sweater on guitar. That’s me singing, the bald one in the
+					middle.
+				</p>
+				<p>
+					<span class="blue"
+						>Not sure what else to say at this point. See what I did there? Point? But yeah, thanks for reading this far! Feel free to reach out and
+						say hello. My email address is <a
+							href="javascript:location='mailto:%5Cu0079%5Cu0065%5Cu0061%5Cu0068%5Cu0040%5Cu0068%5Cu0065%5Cu0079%5Cu002e%5Cu0063%5Cu006f%5Cu006d';void%200"
+							>yeah@hey.com</a
+						>.</span
+					>
+				</p>
 			</div>
 		</div>
 		<div id="fingerWrap" bind:this={fingerWrap} class={active ? 'active' : ''} />
@@ -287,15 +302,16 @@
 				<div role="button" class="close" href />
 				<span class="emoji">🤔</span>
 				<br />
-				Hmmm. WeTransfer is not terribly mobile-friendly, so to try out these links, you'll need to hop on a laptop. Sorry! In the meantime, you can
-				read something I wrote about WeTransfer wallpapers
+				Hmmm. WeTransfer is not terribly mobile-friendly, so to try out these links, you'll need to hop on a laptop. Sorry! In the meantime, you can read
+				something I wrote about WeTransfer wallpapers
 				<span class="blue">
 					<a
 						href="https://ideas.bywetransfer.com/story/once-you-start-noticing-the-backgrounds-of-things-it-can-be-hard-to-stop"
 						target="_blank"
 						class="blue"
 						id="mobileLink"
-						bind:this={mobileLink}>
+						bind:this={mobileLink}
+					>
 						here
 					</a>
 				</span>

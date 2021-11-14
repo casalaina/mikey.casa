@@ -15,4 +15,6 @@ export const routes = [
 	[/^\/laina\/?$/, [c[0], c[3]], [c[1]]]
 ];
 
+// we import the root layout/error components eagerly, so that
+// connectivity errors after initialisation don't nuke the app
 export const fallback = [c[0](), c[1]()];

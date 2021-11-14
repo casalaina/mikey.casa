@@ -16,8 +16,9 @@ export default {
 		target: '#svelte',
 
 		vite: {
-			server: { cors: false },
-			optimizeDeps: { include: ['prismic-dom'] }
+			server: {
+				cors: false
+			}
 		}
 	}
 };
