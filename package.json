@@ -29,5 +29,8 @@
 	"type": "module",
 	"engines": {
 		"node": ">= 12.17.0"
+	},
+	"dependencies": {
+		"normalize.css": "^8.0.1"
 	}
 }
