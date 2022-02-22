@@ -103,8 +103,8 @@
 				<p>I’m not sure who pointed you here, but I’m glad you found the way.</p>
 				<p>I’m Mikey, a developer, designer, and musician living and working in Amsterdam.</p>
 				<p>
-					I currently work at <a href="https://wetransfer.com/">WeTransfer</a>, leading the Creative Engineering team in creating interactives and
-					animations. I’ve worked on stuff like <a target="_blank" rel="noopener" href="https://colorpush.wetransfer.com">this</a>,
+					I'm currently the Creative Engineering Director at <a href="https://wetransfer.com/">WeTransfer</a>, leading the team that builds
+					interactives and animations. I’ve worked on stuff like <a target="_blank" rel="noopener" href="https://colorpush.wetransfer.com">this</a>,
 					<span class="wet"
 						><a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/11160943">this</a>,
 						<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/11685998">this</a>, and
@@ -214,7 +214,8 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
-		transition: opacity 3s;
+		transition: opacity 0.5s, background-color 0.5s, color 0.5s;
+
 		cursor: default;
 		user-select: none;
 		-webkit-user-select: none;
@@ -256,6 +257,7 @@
 		background-color: transparent;
 		-webkit-text-decoration-skip: objects;
 		background-image: url('../assets/wavy--red.svg');
+		transition: color 0.5s;
 	}
 
 	:global(a:hover) {

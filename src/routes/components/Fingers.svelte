@@ -102,8 +102,6 @@
 			}
 		};
 
-		active = true;
-
 		// Update fingers
 		update = () => {
 			for (let i = 0; i < lines.length; i++) {
@@ -149,24 +147,90 @@
 		makeFingers();
 		update();
 	});
+	let fingers = true;
+	let toggleFingers = () => {
+		fingers = fingers == false ? true : false;
+	};
 </script>
 
 <svelte:window on:resize={makeFingers} bind:innerWidth={vw} bind:innerHeight={vh} />
-<div id="outer" on:mousemove={mouseMove} on:touchmove={touchMove}>
+<div id="outer" on:mousemove={mouseMove} on:touchmove={touchMove} class={fingers ? '' : 'hideFingers'}>
 	<div id="inner">
-		<div id="light" bind:this={light} class={active ? 'active' : ''} />
+		{#if fingers}
+			<button class="toggleFingers hide" aria-label="Hide the fingers, show the content" on:click={toggleFingers}>💡</button>
+		{:else}
+			<button class="toggleFingers show" aria-label="Show the fingers, hide the content" on:click={toggleFingers}><span>👉</span></button>
+		{/if}
+		<div id="light" bind:this={light} />
 		<slot />
 
-		<div
-			id="fingerWrap"
-			bind:this={fingerWrap}
-			class={active ? 'active' : ''}
-			aria-label="An emoji based-interactive where finger pointing emojis follow the cursor"
-		/>
+		<div id="fingerWrap" bind:this={fingerWrap} aria-label="An emoji based-interactive where finger pointing emojis follow the cursor" />
 	</div>
 </div>
 
 <style lang="scss">
+	$lg: '(min-width: 1040px)';
+
+	#outer.hideFingers {
+		:global #bgText {
+			background-color: lighten(#f8d68f, 25);
+			color: #444;
+		}
+		#light {
+			opacity: 0;
+			box-shadow: 0;
+			box-shadow: inset 0 0 100px 100px rgba(#f8d68f, 0.9), 0 0 200vw 200vw rgba(#f8d68f, 0.9);
+		}
+		#fingerWrap {
+			opacity: 0;
+			transition: none;
+		}
+		:global(a:nth-of-type(4n + 2)) {
+			color: darken(#6dc999, 10);
+		}
+		:global(a:nth-of-type(4n + 1)) {
+			color: darken(#f8d68f, 20);
+		}
+		:global(a:nth-of-type(4n + 3)),
+		:global(.blue a) {
+			color: #4db7d0;
+		}
+	}
+	.toggleFingers {
+		position: fixed;
+		top: 0.25rem;
+		left: 0.25rem;
+		height: 4rem;
+		width: 4rem;
+		z-index: 9;
+		border-radius: 50%;
+		border: none;
+		stroke: none;
+		background-color: #000;
+		box-shadow: 5px 5px 30px rgba(white, 0.3);
+		transition: transform 0.5s, box-shadow 0.5s;
+
+		@media #{$lg} {
+			font-size: 2rem;
+		}
+
+		&.show {
+			box-shadow: 5px 5px 10px rgba(black, 0.3);
+			&:hover {
+				box-shadow: 2px 2px 10px rgba(black, 0.3);
+			}
+		}
+
+		&:hover {
+			transform: translate(0px, 1px);
+			box-shadow: 2px 2px 10px rgba(white, 0.3);
+		}
+
+		span {
+			transform: rotate(60deg);
+			display: inline-block;
+		}
+	}
 	#inner {
 		margin: 0;
 		width: 100vw;
@@ -185,7 +249,6 @@
 		-moz-osx-font-smoothing: grayscale;
 		-webkit-backface-visibility: hidden;
 		backface-visibility: hidden;
-		transition: opacity 2.5s;
 	}
 
 	#light {
@@ -196,13 +259,9 @@
 		box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.9), 0 0 200vw 200vw rgba(0, 0, 0, 0.9);
 		width: 500px;
 		height: 500px;
-		opacity: 0;
-		transition: opacity 3s;
+		opacity: 1;
+		transition: opacity 0.5s, box-shadow 0.5s;
 		will-change: transform;
-
-		&.active {
-			opacity: 1;
-		}
 	}
 
 	:global #fingerWrap {
@@ -210,11 +269,7 @@
 		z-index: 4;
 		cursor: pointer;
 		font-size: 32px;
-		opacity: 0;
+		opacity: 1;
 		transition: opacity 0.5s;
-
-		&.active {
-			opacity: 1;
-		}
 	}
 </style>
