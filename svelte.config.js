@@ -1,5 +1,5 @@
 import sveltePreprocess from 'svelte-preprocess';
-import netlify from '@sveltejs/adapter-static';
+import adapter from '@sveltejs/adapter-netlify';
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
@@ -10,7 +10,7 @@ export default {
 		// By default, `npm run build` will create a standard Node app.
 		// You can create optimized builds for different platforms by
 		// specifying a different adapter
-		adapter: netlify(),
+		adapter: adapter(),
 
 		vite: {
 			server: {
