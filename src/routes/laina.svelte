@@ -1,184 +1,27 @@
 <script>
 	import { onMount } from 'svelte';
-	import videoSrc from '../assets/introVideo.mp4';
+	import { fade } from 'svelte/transition';
 	import GoogleAnalytics from '../utils/GoogleAnalytics.svelte';
 	import { page } from '$app/stores';
-
-	// finger variables
-	let lines = [];
-	let requestId = null;
-	let fingerWrap;
-
-	// content variables
-	let light;
-	let title;
-	let cursor;
-	let video;
+	import Fingers from './components/Fingers.svelte';
 
 	// mobile popup variables
 	let mobilePopUp;
 	let mobileLink;
+	let closePopUp;
 
 	// states
 	let ready = false;
 	let active = false;
 	let mobilePopUpActive = false;
 
-	// set global functions
-	let makeFingers;
-	let startClick;
-	let startTouch;
-	let mouseMove;
-	let touchMove;
-	let update;
-	let closePopUp;
-	let startMeUp;
-
-	onMount(async () => {
-		const Browser = await import('@wetransfer/concorde-browser');
-
-		let vw = window.innerWidth;
-		let vh = window.innerHeight;
-
-		let mouse = {
-			x: vw * 0.5,
-			y: vh * 0.5
+	onMount(() => {
+		let supportsTouchEvents = () => {
+			return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
 		};
 
-		// Set up circle
-		const pointInCircle = (x, y, cx, cy, radius) => {
-			let distancesquared = (x - cx) * (x - cx) + (y - cy) * (y - cy);
-			return distancesquared <= radius * radius;
-		};
-
-		// Make fingers
-		makeFingers = () => {
-			//clear fingerWrap
-			fingerWrap.innerHTML = '';
-			vw = window.innerWidth;
-			vh = window.innerHeight;
-
-			// finger settings
-			let width = 40;
-			let height = 40;
-			let grid = 50;
-			fingerWrap.style.setProperty('font-size', `32px`);
-
-			// Small width finger adjustment
-			if (vw < 600) {
-				width = 25;
-				height = 25;
-				grid = 36;
-				fingerWrap.style.setProperty('font-size', `18px`);
-			}
-
-			//add Fingers
-			for (let y = grid; y <= vh - height; y += grid) {
-				for (let x = grid; x <= vw - width; x += grid) {
-					let line = document.createElement('div');
-					fingerWrap.append(line);
-					line.style.width = width + 'px';
-					line.style.height = height + 'px';
-					line.style.left = x + 'px';
-					line.style.top = y + 'px';
-					line.innerHTML = `
-          <span>👉🏻</span>
-          <span>👉🏼</span>
-          <span>👉🏽</span>
-          <span>👉🏾</span>
-          <span>👉🏿</span>
-      `;
-					line.className = 'line f4';
-
-					lines.push({
-						element: line,
-						cx: x + width / 2,
-						cy: y + height / 2
-					});
-				}
-			}
-		};
-
-		// Movement events
-		mouseMove = (event) => {
-			mouse.x = event.pageX;
-			mouse.y = event.pageY;
-			cursor.style.left = event.pageX + 'px';
-			cursor.style.top = event.pageY + 'px';
-
-			if (!requestId) {
-				requestId = requestAnimationFrame(update);
-			}
-		};
-
-		touchMove = (event) => {
-			mouse.x = event.pageX;
-			mouse.y = event.pageY;
-
-			if (!requestId) {
-				requestId = requestAnimationFrame(update);
-			}
-		};
-
-		// Start main section
-		startMeUp = () => {
-			makeFingers();
-			video.removeAttribute('loop');
-			active = true;
-			update();
-		};
-
-		startClick = () => {
-			startMeUp();
-		};
-
-		// override cursor movement
-		startTouch = (event) => {
-			event.preventDefault();
-			startMeUp();
-		};
-
-		// Update fingers
-		update = () => {
-			for (let i = 0; i < lines.length; i++) {
-				let line = lines[i];
-				let dx = mouse.x - line.cx;
-				let dy = mouse.y - line.cy;
-				let transform = 'rotate(' + Math.atan2(dy, dx) + 'rad)';
-				line.element.style.transform = transform;
-
-				if (pointInCircle(mouse.x, mouse.y, line.cx, line.cy, 75) == true) {
-					line.element.className = 'line f0';
-				} else if (pointInCircle(mouse.x, mouse.y, line.cx, line.cy, 150) == true) {
-					line.element.className = 'line f1';
-				} else if (pointInCircle(mouse.x, mouse.y, line.cx, line.cy, 275) == true) {
-					line.element.className = 'line f2';
-				} else if (pointInCircle(mouse.x, mouse.y, line.cx, line.cy, 400) == true) {
-					line.element.className = 'line f3';
-				} else {
-					line.element.className = 'line f4';
-				}
-			}
-
-			let xPercent = mouse.x / vw;
-			if (xPercent > 4 / 5) {
-				document.title = '👇🏿👇🏾👇🏽👇🏼👇🏻';
-			} else if (xPercent > 3 / 5) {
-				document.title = '👇🏾👇🏽👇🏼👇🏻👇🏼';
-			} else if (xPercent > 2 / 5) {
-				document.title = '👇🏽👇🏼👇🏻👇🏼👇🏽';
-			} else if (xPercent > 1 / 5) {
-				document.title = '👇🏼👇🏻👇🏼👇🏽👇🏾';
-			} else if (xPercent < 1 / 5) {
-				document.title = '👇🏻👇🏼👇🏽👇🏾👇🏿';
-			}
-
-			requestId = null;
-
-			// Update light position
-			if (active == true) {
-				light.style.cssText = `transform: translate( ${mouse.x - 250}px, ${mouse.y - 250}px)`;
-			}
+		let isMobile = () => {
+			return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 		};
 
 		// if open, tap anywhere to close popup
@@ -187,14 +30,15 @@
 				mobilePopUpActive = false;
 			}
 		};
-		if (Browser.supportsTouchEvents) {
+
+		if (supportsTouchEvents()) {
 			// Adjust height within browser window for mobile
-			let heightFix = window.innerHeight * 0.01;
+			let heightFix = vh * 0.01;
 			document.body.style.setProperty('--vh', `${heightFix}px`);
 		}
 
 		// Override mobile WeTransfer links
-		if (Browser.isMobile) {
+		if (isMobile()) {
 			let wet = document.querySelectorAll('.wet a');
 			for (var i = 0; i < wet.length; i++) {
 				wet[i].onclick = function (e) {
@@ -203,13 +47,11 @@
 				};
 			}
 		}
-
-		// show content on ready
-		ready = true;
+		setTimeout(function () {
+			ready = true;
+		}, 100);
 	});
 </script>
-
-<svelte:window on:resize={makeFingers} />
 
 <svelte:head>
 	<meta charset="UTF-8" />
@@ -254,23 +96,15 @@
 </svelte:head>
 
 <GoogleAnalytics {page} />
-
-<div id="outer" on:mousemove={mouseMove} on:touchmove={touchMove} on:touchend={closePopUp}>
-	<div id="inner" class={ready ? 'visible' : ''}>
-		<div id="light" bind:this={light} class={active ? 'active' : ''} />
-		<div id="title" class={active ? 'hide' : ''} bind:this={title} on:click={startClick} on:touchend={startTouch}>
-			<h1>mikey.casa/laina</h1>
-			<video id="video" src={videoSrc} autoplay loop muted playsinline disablePictureInPicture="true" bind:this={video} />
-			<div id="overlay" />
-			<div id="cursor" bind:this={cursor} />
-		</div>
-		<div id="bgText" class={active ? 'active' : ''}>
+<div id="fadeWrap" class={ready ? 'active' : ''}>
+	<Fingers>
+		<div id="bgText">
 			<div>
 				<p>I’m not sure who pointed you here, but I’m glad you found the way.</p>
 				<p>I’m Mikey, a developer, designer, and musician living and working in Amsterdam.</p>
 				<p>
-					I currently work at <a href="https://wetransfer.com/">WeTransfer</a>, leading the Creative Engineering team in creating interactives and
-					animations. I’ve worked on stuff like <a target="_blank" rel="noopener" href="https://colorpush.wetransfer.com">this</a>,
+					I'm currently the Creative Engineering Director at <a href="https://wetransfer.com/">WeTransfer</a>, leading the team that builds
+					interactives and animations. I’ve worked on stuff like <a target="_blank" rel="noopener" href="https://colorpush.wetransfer.com">this</a>,
 					<span class="wet"
 						><a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/11160943">this</a>,
 						<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/11685998">this</a>, and
@@ -296,8 +130,7 @@
 				</p>
 			</div>
 		</div>
-		<div id="fingerWrap" bind:this={fingerWrap} class={active ? 'active' : ''} />
-		<div id="mobilePopUp" bind:this={mobilePopUp} class={mobilePopUpActive ? 'active' : ''}>
+		<div id="mobilePopUp" bind:this={mobilePopUp} class={mobilePopUpActive ? 'active' : ''} transition={fade}>
 			<div class="inner">
 				<div role="button" class="close" href />
 				<span class="emoji">🤔</span>
@@ -318,7 +151,7 @@
 				.
 			</div>
 		</div>
-	</div>
+	</Fingers>
 </div>
 
 <style lang="scss">
@@ -359,36 +192,11 @@
 		}
 	}
 
-	#inner {
-		margin: 0;
-		width: 100vw;
-		height: 100vh;
-		top: 0;
-		left: 0;
-		height: calc(var(--vh, 1vh) * 100);
-		position: fixed;
-		background-color: #000000;
-		font-size: 2em;
-		overflow: hidden;
-		font-family: urbane, sans-serif;
-		font-weight: 500;
-		font-style: normal;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		-webkit-backface-visibility: hidden;
-		backface-visibility: hidden;
+	#fadeWrap {
 		opacity: 0;
-		transition: opacity 0.5s;
-		display: none;
-
-		&.visible {
-			display: block;
+		transition: opacity 5s;
+		&.active {
 			opacity: 1;
-			cursor: none;
-
-			#overlay {
-				background-color: transparent;
-			}
 		}
 	}
 
@@ -406,17 +214,13 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
-		opacity: 0.1;
-		transition: opacity 3s;
+		transition: opacity 0.5s, background-color 0.5s, color 0.5s;
+
 		cursor: default;
 		user-select: none;
 		-webkit-user-select: none;
 		/* Chrome, Safari, and Opera */
 		-webkit-touch-callout: none;
-
-		&.active {
-			opacity: 1;
-		}
 
 		@media #{$sm} {
 			column-count: 2;
@@ -437,112 +241,48 @@
 		}
 	}
 
-	#title {
-		width: 100vw;
-		height: 100%;
-		position: absolute;
-		z-index: 5;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
+	:global a {
 		color: #ea6180;
-		transition: opacity 2.5s;
-		overflow: hidden;
-
-		@media #{$md} {
-			font-weight: 500;
-		}
-
-		&.hide {
-			opacity: 0;
-			pointer-events: none;
-		}
-
-		h1 {
-			display: none;
-		}
-	}
-
-	#video {
-		position: fixed;
-		left: 0%;
-		top: 50%;
-		transform: translate(-30%, -50%);
-		min-width: 80%;
-		min-height: 100%;
-
-		@media #{$md} {
-			left: 50%;
-			transform: translate(-50%, -50%);
-		}
-	}
-
-	#overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-image: url('../assets/overlay.svg');
-		background-size: cover;
-		background-color: black;
-	}
-
-	#cursor {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 5vw;
-		height: 5vw;
-		min-width: 80px;
-		min-height: 80px;
-		background-image: url('../assets/finger.svg');
-		background-size: contain;
-		background-repeat: no-repeat;
-		background-position: center center;
-		animation: wiggle 1s infinite;
-	}
-
-	@keyframes wiggle {
-		0% {
-			transform: translate(-50%, -50%);
-		}
-
-		50% {
-			transform: translate(-40%, -50%);
-		}
-	}
-
-	#light {
-		position: absolute;
-		z-index: 2;
-		pointer-events: none;
+		background-repeat: repeat;
+		background-position-x: 0;
+		background-position-y: 0;
+		background-size: auto auto;
+		background-repeat: repeat-x;
+		background-size: 1.5rem 0.5rem;
+		background-position: 0.2rem 1.2rem;
+		animation: move 30s linear infinite;
+		-webkit-animation: move 15s linear infinite;
+		animation-play-state: paused;
+		text-decoration: none;
 		background-color: transparent;
-		box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.9), 0 0 200vw 200vw rgba(0, 0, 0, 0.9);
-		width: 500px;
-		height: 500px;
-		opacity: 0;
-		transition: opacity 3s;
-		will-change: transform;
-
-		&.active {
-			opacity: 1;
-		}
+		-webkit-text-decoration-skip: objects;
+		background-image: url('../assets/wavy--red.svg');
+		transition: color 0.5s;
 	}
 
-	:global #fingerWrap {
-		position: absolute;
-		z-index: 4;
-		cursor: pointer;
-		font-size: 32px;
-		opacity: 0;
-		transition: opacity 0.5s;
+	:global(a:hover) {
+		animation-play-state: running;
+	}
 
-		&.active {
-			opacity: 1;
-		}
+	:global(a:nth-of-type(4n + 0)) {
+		color: #ea6180;
+		background-image: url('../assets/wavy--red.svg');
+	}
+
+	:global(a:nth-of-type(4n + 1)) {
+		color: #f8d68f;
+		background-image: url('../assets/wavy--yellow.svg');
+	}
+
+	:global(a:nth-of-type(4n + 2)) {
+		color: #6dc999;
+		background-image: url('../assets/wavy--green.svg');
+	}
+
+	:global(a:nth-of-type(4n + 3)),
+	:global(.blue a) {
+		color: #4db7d0;
+		background-image: url('../assets/wavy--blue.svg');
 	}
 
 	:global .line {
@@ -617,49 +357,6 @@
 		to {
 			background-position: 500px 1.2em;
 		}
-	}
-
-	:global a {
-		color: #ea6180;
-		background-repeat: repeat;
-		background-position-x: 0;
-		background-position-y: 0;
-		background-size: auto auto;
-		background-repeat: repeat-x;
-		background-size: 1.5rem 0.5rem;
-		background-position: 0.2rem 1.2rem;
-		animation: move 30s linear infinite;
-		-webkit-animation: move 15s linear infinite;
-		animation-play-state: paused;
-		text-decoration: none;
-		background-color: transparent;
-		-webkit-text-decoration-skip: objects;
-		background-image: url('../assets/wavy--red.svg');
-	}
-
-	:global(a:hover) {
-		animation-play-state: running;
-	}
-
-	:global(a:nth-of-type(4n + 0)) {
-		color: #ea6180;
-		background-image: url('../assets/wavy--red.svg');
-	}
-
-	:global(a:nth-of-type(4n + 1)) {
-		color: #f8d68f;
-		background-image: url('../assets/wavy--yellow.svg');
-	}
-
-	:global(a:nth-of-type(4n + 2)) {
-		color: #6dc999;
-		background-image: url('../assets/wavy--green.svg');
-	}
-
-	:global(a:nth-of-type(4n + 3)),
-	:global(.blue a) {
-		color: #4db7d0;
-		background-image: url('../assets/wavy--blue.svg');
 	}
 
 	#mobilePopUp {
