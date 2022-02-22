@@ -237,7 +237,7 @@
 		margin-top: 0;
 		margin-bottom: 1.25rem;
 		@media #{$xs} {
-			line-height: 1.25;
+			line-height: 1.33;
 		}
 
 		@media #{$md} {

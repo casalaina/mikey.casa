@@ -198,7 +198,7 @@
 	}
 	.toggleFingers {
 		position: fixed;
-		font-size: 1.25rem;
+		font-size: 1.33rem;
 		top: 0.25rem;
 		left: 0.25rem;
 		height: 4rem;
