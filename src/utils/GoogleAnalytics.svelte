@@ -12,7 +12,7 @@
 	$: {
 		if (typeof gtag !== 'undefined') {
 			window.gtag('config', id, {
-				page_path: $page.path
+				page_path: $page.url.pathname
 			});
 		}
 	}

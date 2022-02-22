@@ -39,7 +39,6 @@
 				wet[i].onclick = function (e) {
 					e.preventDefault();
 					mobilePopUpActive = true;
-					console.log(mobilePopUpActive);
 				};
 			}
 		}
