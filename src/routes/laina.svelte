@@ -15,6 +15,8 @@
 	let active = false;
 	let mobilePopUpActive = false;
 
+	let vh;
+
 	onMount(() => {
 		let supportsTouchEvents = () => {
 			return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
@@ -22,13 +24,6 @@
 
 		let isMobile = () => {
 			return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-		};
-
-		// if open, tap anywhere to close popup
-		closePopUp = (event) => {
-			if (mobilePopUpActive == true && event.target != mobileLink) {
-				mobilePopUpActive = false;
-			}
 		};
 
 		if (supportsTouchEvents()) {
@@ -44,12 +39,13 @@
 				wet[i].onclick = function (e) {
 					e.preventDefault();
 					mobilePopUpActive = true;
+					console.log(mobilePopUpActive);
 				};
 			}
 		}
 		setTimeout(function () {
 			ready = true;
-		}, 100);
+		}, 500);
 	});
 </script>
 
@@ -96,6 +92,7 @@
 </svelte:head>
 
 <GoogleAnalytics {page} />
+<svelte:window bind:innerHeight={vh} />
 <div id="fadeWrap" class={ready ? 'active' : ''}>
 	<Fingers>
 		<div id="bgText">
@@ -113,44 +110,47 @@
 						<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/19374023">more</a>.</span
 					>
 				</p>
-				<p>Previously, I helped found the dev shop <a href="http://looprecur.com/">loop/recur</a>.</p>
+				<p>Previously, I helped found the dev shop <a href="http://looprecur.com/" target="_blank">loop/recur</a>.</p>
 				<p>
-					I make music with the band <a href="http://naiveset.nl/">Naive Set</a>. Here’s
-					<a href="https://www.youtube.com/watch?v=eUuXFB4T23o">a video</a> we did with a giant sweater on guitar. That’s me singing, the bald one in the
-					middle.
+					I make music with the band <a href="http://naiveset.nl/" target="_blank">Naive Set</a>. Here’s
+					<a href="https://www.youtube.com/watch?v=eUuXFB4T23o" target="_blank">a video</a> we did with a giant sweater on guitar. That’s me singing, the
+					bald one in the middle.
 				</p>
 				<p>
 					<span class="blue"
 						>Not sure what else to say at this point. See what I did there? Point? But yeah, thanks for reading this far! Feel free to reach out and
 						say hello. My email address is <a
 							href="javascript:location='mailto:%5Cu0079%5Cu0065%5Cu0061%5Cu0068%5Cu0040%5Cu0068%5Cu0065%5Cu0079%5Cu002e%5Cu0063%5Cu006f%5Cu006d';void%200"
-							>yeah@hey.com</a
+							target="_blank">yeah@hey.com</a
 						>.</span
 					>
 				</p>
 			</div>
 		</div>
-		<div id="mobilePopUp" bind:this={mobilePopUp} class={mobilePopUpActive ? 'active' : ''} transition={fade}>
-			<div class="inner">
-				<div role="button" class="close" href />
-				<span class="emoji">🤔</span>
-				<br />
-				Hmmm. WeTransfer is not terribly mobile-friendly, so to try out these links, you'll need to hop on a laptop. Sorry! In the meantime, you can read
-				something I wrote about WeTransfer wallpapers
-				<span class="blue">
-					<a
-						href="https://ideas.bywetransfer.com/story/once-you-start-noticing-the-backgrounds-of-things-it-can-be-hard-to-stop"
-						target="_blank"
-						class="blue"
-						id="mobileLink"
-						bind:this={mobileLink}
-					>
-						here
-					</a>
-				</span>
-				.
+		{#if mobilePopUpActive}
+			<div id="mobileOverlay" on:click={() => (mobilePopUpActive = false)} transition:fade />
+			<div id="mobilePopUp" bind:this={mobilePopUp} class={mobilePopUpActive ? 'active' : ''} transition:fade>
+				<div class="inner">
+					<div role="button" class="close" href />
+					<span class="emoji">🤔</span>
+					<br />
+					Hmmm. WeTransfer is not terribly mobile-friendly, so to try out these links, you'll need to hop on a laptop. Sorry! In the meantime, you can
+					read something I wrote about WeTransfer wallpapers
+					<span class="blue">
+						<a
+							href="https://ideas.bywetransfer.com/story/once-you-start-noticing-the-backgrounds-of-things-it-can-be-hard-to-stop"
+							target="_blank"
+							class="blue"
+							id="mobileLink"
+							bind:this={mobileLink}
+						>
+							here
+						</a>
+					</span>
+					.
+				</div>
 			</div>
-		</div>
+		{/if}
 	</Fingers>
 </div>
 
@@ -359,22 +359,23 @@
 		}
 	}
 
+	#mobileOverlay {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 5;
+		background-color: rgba(black, 0.8);
+	}
+
 	#mobilePopUp {
 		position: absolute;
 		width: 100%;
 		height: 100%;
 		position: absolute;
 		z-index: 6;
-		opacity: 0;
-		background-color: rgba(0, 0, 0, 0.5);
-		transition: opacity 1s;
 		pointer-events: none;
-
-		&.active {
-			opacity: 1;
-			pointer-events: all;
-			transition: opacity 1s;
-		}
 
 		.inner {
 			position: absolute;
@@ -388,6 +389,11 @@
 			width: 80%;
 			height: auto;
 			padding-bottom: 2rem;
+			pointer-events: none;
+
+			a {
+				pointer-events: all;
+			}
 		}
 
 		.emoji {
