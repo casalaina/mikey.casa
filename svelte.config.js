@@ -12,9 +12,6 @@ export default {
 		// specifying a different adapter
 		adapter: netlify(),
 
-		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte',
-
 		vite: {
 			server: {
 				cors: false
