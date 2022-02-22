@@ -236,6 +236,9 @@
 	:global p {
 		margin-top: 0;
 		margin-bottom: 1.25rem;
+		@media #{$xs} {
+			line-height: 1.25;
+		}
 
 		@media #{$md} {
 			margin-bottom: 1.5rem;
