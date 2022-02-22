@@ -198,10 +198,14 @@
 	}
 	.toggleFingers {
 		position: fixed;
+		font-size: 1.25rem;
 		top: 0.25rem;
 		left: 0.25rem;
 		height: 4rem;
 		width: 4rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		z-index: 9;
 		border-radius: 50%;
 		border: none;
