@@ -16,6 +16,7 @@
 	let mobilePopUpActive = false;
 
 	let vh;
+	let bgText;
 
 	onMount(() => {
 		let supportsTouchEvents = () => {
@@ -34,7 +35,7 @@
 
 		// Override mobile WeTransfer links
 		if (isMobile()) {
-			let wet = document.querySelectorAll('.wet a');
+			let wet = bgText.querySelectorAll("a[href^='https://wetransfer.com/wallpaper']");
 			for (var i = 0; i < wet.length; i++) {
 				wet[i].onclick = function (e) {
 					e.preventDefault();
@@ -94,40 +95,38 @@
 <svelte:window bind:innerHeight={vh} />
 <div id="fadeWrap" class={ready ? 'active' : ''}>
 	<Fingers>
-		{#if ready}
-			<div id="bgText">
-				<div>
-					<p>I’m not sure who pointed you here, but I’m glad you found the way.</p>
-					<p>I’m Mikey, a developer, designer, and musician living and working in Amsterdam.</p>
-					<p>
-						I'm currently the Creative Engineering Director at <a href="https://wetransfer.com/">WeTransfer</a>, leading the team that builds
-						interactives and animations. I’ve worked on stuff like <a target="_blank" rel="noopener" href="https://colorpush.wetransfer.com">this</a>,
-						<span class="wet"
-							><a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/11160943">this</a>,
-							<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/11685998">this</a>, and
-							<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/18127579">a</a>
-							<a target="_blank" rel="noopener" href="https://mikey.wetransfer.com/wallpaper/12725040">ton</a>
-							<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/19374023">more</a>.</span
-						>
-					</p>
-					<p>Previously, I helped found the dev shop <a href="http://looprecur.com/" target="_blank">loop/recur</a>.</p>
-					<p>
-						I make music with the band <a href="http://naiveset.nl/" target="_blank">Naive Set</a>. Here’s
-						<a href="https://www.youtube.com/watch?v=eUuXFB4T23o" target="_blank">a video</a> we did with a giant sweater on guitar. That’s me singing,
-						the bald one in the middle.
-					</p>
-					<p>
-						<span class="blue"
-							>Not sure what else to say at this point. See what I did there? Point? But yeah, thanks for reading this far! Feel free to reach out and
-							say hello. My email address is <a
-								href="javascript:location='mailto:%5Cu0079%5Cu0065%5Cu0061%5Cu0068%5Cu0040%5Cu0068%5Cu0065%5Cu0079%5Cu002e%5Cu0063%5Cu006f%5Cu006d';void%200"
-								target="_blank">yeah@hey.com</a
-							>.</span
-						>
-					</p>
-				</div>
+		<!-- {#if ready} -->
+		<div id="bgText" bind:this={bgText}>
+			<div>
+				<p>I’m not sure who pointed you here, but I’m glad you found the way.</p>
+				<p>I’m Mikey, a developer, designer, and musician living and working in Amsterdam.</p>
+				<p>
+					I'm currently the Creative Engineering Director at <a href="https://wetransfer.com/">WeTransfer</a>, leading the team that builds
+					interactives and animations. I’ve worked on stuff like <a target="_blank" rel="noopener" href="https://colorpush.wetransfer.com">this</a>,
+					<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/11160943">this</a>,
+					<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/11685998">this</a>, and
+					<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/18127579">a</a>
+					<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/12725040">ton</a>
+					<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/19374023">more</a>.
+				</p>
+				<p>Previously, I helped found the dev shop <a href="http://looprecur.com/" target="_blank">loop/recur</a>.</p>
+				<p>
+					I make music with the band <a href="http://naiveset.nl/" target="_blank">Naive Set</a>. Here’s
+					<a href="https://www.youtube.com/watch?v=eUuXFB4T23o" target="_blank">a video</a> we did with a giant sweater on guitar. That’s me singing, the
+					bald one in the middle.
+				</p>
+				<p>
+					<span class="blue"
+						>Not sure what else to say at this point. See what I did there? Point? But yeah, thanks for reading this far! Feel free to reach out and
+						say hello. My email address is <a
+							href="javascript:location='mailto:%5Cu0079%5Cu0065%5Cu0061%5Cu0068%5Cu0040%5Cu0068%5Cu0065%5Cu0079%5Cu002e%5Cu0063%5Cu006f%5Cu006d';void%200"
+							target="_blank">yeah@hey.com</a
+						>.</span
+					>
+				</p>
 			</div>
-		{/if}
+		</div>
+		<!-- {/if} -->
 		{#if mobilePopUpActive}
 			<div id="mobileOverlay" on:click={() => (mobilePopUpActive = false)} transition:fade />
 			<div id="mobilePopUp" bind:this={mobilePopUp} class={mobilePopUpActive ? 'active' : ''} transition:fade>
