@@ -151,11 +151,18 @@
 </script>
 
 <svelte:window on:resize={makeFingers} bind:innerWidth={vw} bind:innerHeight={vh} />
-<div id="outer" on:mousemove={mouseMove} on:touchmove={touchMove} class={fingers ? '' : 'hideFingers'}>
+<div
+	id="outer"
+	on:mousemove={mouseMove}
+	on:touchmove={touchMove}
+	class={fingers ? '' : 'hideFingers'}
+>
 	<div id="inner">
 		<div class={fingers ? 'toggleFingers hide' : 'toggleFingers show'}>
 			<button
-				aria-label={fingers ? 'Hide the fingers, show the content' : 'Show the fingers, hide the content'}
+				aria-label={fingers
+					? 'Hide the fingers, show the content'
+					: 'Show the fingers, hide the content'}
 				on:keyup={() => (fingers = !fingers)}
 				on:click={() => (fingers = !fingers)}
 			>
@@ -169,7 +176,11 @@
 		<div id="light" bind:this={light} />
 		<slot />
 
-		<div id="fingerWrap" bind:this={fingerWrap} aria-label="An emoji based-interactive where finger pointing emojis follow the cursor" />
+		<div
+			id="fingerWrap"
+			bind:this={fingerWrap}
+			aria-label="An emoji based-interactive where finger pointing emojis follow the cursor"
+		/>
 	</div>
 </div>
 
@@ -202,11 +213,11 @@
 	}
 	.toggleFingers {
 		position: fixed;
-		font-size: 1.33rem;
+		font-size: 1.75rem;
 		top: 0.25rem;
 		left: 0.25rem;
-		height: 4rem;
-		width: 4rem;
+		height: 4.75rem;
+		width: 4.75rem;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -219,9 +230,13 @@
 			width: 100%;
 			height: 100%;
 			border-radius: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			border: none;
 			stroke: none;
 			background-color: #000;
+			will-change: transform;
 
 			@media #{$lg} {
 				font-size: 2rem;

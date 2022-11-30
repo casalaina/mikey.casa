@@ -1,5 +1,10 @@
 <script lang="ts">
 	import GoogleAnalytics from '../utils/GoogleAnalytics.svelte';
+	import appleTouchIcon from '$lib/favicon/apple-touch-icon.png';
+	import icon32 from '$lib/favicon/favicon-32x32.png';
+	import icon16 from '$lib/favicon/favicon-16x16.png';
+	import safariPin from '$lib/favicon/safari-pinned-tab.svg';
+	import favicon from '$lib/favicon/favicon.ico';
 </script>
 
 <svelte:head>
@@ -35,11 +40,11 @@
 	/>
 	<meta property="twitter:image" content="https://mikey.casa/favicon/thumbnail.jpg" />
 
-	<link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon.png" />
-	<link rel="icon" type="image/png" sizes="32x32" href="../../favicon/favicon-32x32.png" />
-	<link rel="icon" type="image/png" sizes="16x16" href="../../favicon/favicon-16x16.png" />
-	<link rel="mask-icon" href="../../favicon/safari-pinned-tab.svg" color="#000000" />
-	<link rel="shortcut icon" href="../../favicon/favicon.ico" />
+	<link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon} />
+	<link rel="icon" type="image/png" sizes="32x32" href={icon32} />
+	<link rel="icon" type="image/png" sizes="16x16" href={icon16} />
+	<link rel="mask-icon" href={safariPin} color="#000000" />
+	<link rel="shortcut icon" href={favicon} />
 	<meta name="msapplication-TileColor" content="#da532c" />
 	<meta name="theme-color" content="#ffffff" />
 </svelte:head>

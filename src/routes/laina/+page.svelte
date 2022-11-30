@@ -225,10 +225,10 @@
 		width: 100vw;
 		height: 100%;
 		position: absolute;
-		font-size: 1.1em;
+		font-size: 1.075em;
 		background-color: #000;
 		color: #888;
-		padding: 3rem 3.5rem;
+		padding: 3.5rem 3.5rem;
 		z-index: 1;
 		background-size: cover;
 		top: 0;
