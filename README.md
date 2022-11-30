@@ -17,6 +17,8 @@ npm run dev
 npm run dev -- --open
 ```
 
+## Building
+
 ```
 npm run build
 ```
