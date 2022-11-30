@@ -1,14 +1,22 @@
-# mikey.casa/laina
+# create-svelte
 
-My personal website, [mikey.casa/laina](https://mikey.casa/laina).
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-An interactive version of the [Cascading Pointing Hand Emoji Copypasta](https://knowyourmeme.com/memes/cascading-pointing-hand-emoji-copypasta).
+## Creating a project
 
-Built w/ [SvelteKit](https://github.com/sveltejs/kit)
+If you're seeing this, you've probably already done this step. Congrats!
+
+```bash
+# create a new project in the current directory
+npm create svelte@latest
+
+# create a new project in my-app
+npm create svelte@latest my-app
+```
 
 ## Developing
 
-Start a development server:
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
 ```bash
 npm run dev
@@ -19,20 +27,12 @@ npm run dev -- --open
 
 ## Building
 
-Prerendered using [@sveltejs/adapter-static](https://github.com/sveltejs/kit/tree/master/packages/adapter-static)
+To create a production version of your app:
 
-```
+```bash
 npm run build
 ```
 
-## Deployed
+You can preview the production build with `npm run preview`.
 
-Via [Netlify](https://www.netlify.com/)
-
-[![CC BY 4.0][cc-by-shield]][cc-by]
-
-This work is licensed under a
-[Creative Commons Attribution 4.0 International License][cc-by].
-
-[cc-by]: http://creativecommons.org/licenses/by/4.0/
-[cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
