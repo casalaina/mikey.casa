@@ -148,19 +148,24 @@
 		update();
 	});
 	let fingers = true;
-	let toggleFingers = () => {
-		fingers = fingers == false ? true : false;
-	};
 </script>
 
 <svelte:window on:resize={makeFingers} bind:innerWidth={vw} bind:innerHeight={vh} />
 <div id="outer" on:mousemove={mouseMove} on:touchmove={touchMove} class={fingers ? '' : 'hideFingers'}>
 	<div id="inner">
-		{#if fingers}
-			<button class="toggleFingers hide" aria-label="Hide the fingers, show the content" on:click={toggleFingers}>💡</button>
-		{:else}
-			<button class="toggleFingers show" aria-label="Show the fingers, hide the content" on:click={toggleFingers}><span>👉</span></button>
-		{/if}
+		<div class={fingers ? 'toggleFingers hide' : 'toggleFingers show'}>
+			<button
+				aria-label={fingers ? 'Hide the fingers, show the content' : 'Show the fingers, hide the content'}
+				on:keyup={() => (fingers = !fingers)}
+				on:click={() => (fingers = !fingers)}
+			>
+				{#if fingers}
+					💡
+				{:else}
+					👉
+				{/if}
+			</button>
+		</div>
 		<div id="light" bind:this={light} />
 		<slot />
 
@@ -171,7 +176,7 @@
 <style lang="scss">
 	$lg: '(min-width: 1040px)';
 
-	#outer.hideFingers {
+	#outer.hideFingers :global {
 		:global #bgText {
 			background-color: lighten(#f8d68f, 25);
 			color: #444;
@@ -185,14 +190,13 @@
 			opacity: 0;
 			transition: none;
 		}
-		:global(a:nth-of-type(4n + 2)) {
+		a.green {
 			color: darken(#6dc999, 10);
 		}
-		:global(a:nth-of-type(4n + 1)) {
+		a.yellow {
 			color: darken(#f8d68f, 20);
 		}
-		:global(a:nth-of-type(4n + 3)),
-		:global(.blue a) {
+		a.blue {
 			color: #4db7d0;
 		}
 	}
@@ -208,31 +212,39 @@
 		align-items: center;
 		z-index: 9;
 		border-radius: 50%;
-		border: none;
-		stroke: none;
-		background-color: #000;
-		box-shadow: 5px 5px 30px rgba(white, 0.3);
+		box-shadow: 2px 5px 30px rgba(white, 0.3);
 		transition: transform 0.5s, box-shadow 0.5s;
 
-		@media #{$lg} {
-			font-size: 2rem;
+		button {
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			border: none;
+			stroke: none;
+			background-color: #000;
+
+			@media #{$lg} {
+				font-size: 2rem;
+			}
 		}
 
 		&.show {
-			box-shadow: 5px 5px 10px rgba(black, 0.3);
+			box-shadow: 2px 5px 10px rgba(black, 0.3);
+			button {
+				transform: rotate(60deg);
+				transition: transform 0.5s;
+			}
 			&:hover {
+				transform: translate(0px, 1px);
 				box-shadow: 2px 2px 10px rgba(black, 0.3);
 			}
 		}
 
-		&:hover {
-			transform: translate(0px, 1px);
-			box-shadow: 2px 2px 10px rgba(white, 0.3);
-		}
-
-		span {
-			transform: rotate(60deg);
-			display: inline-block;
+		&.hide {
+			&:hover {
+				transform: translate(0px, 1px);
+				box-shadow: 2px 2px 10px rgba(white, 0.3);
+			}
 		}
 	}
 	#inner {

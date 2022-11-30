@@ -1,21 +1,15 @@
-import sveltePreprocess from 'svelte-preprocess';
-import adapter from '@sveltejs/adapter-netlify';
+import adapter from '@sveltejs/adapter-auto';
+import preprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
-export default {
+const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
-	preprocess: sveltePreprocess(),
-	kit: {
-		// By default, `npm run build` will create a standard Node app.
-		// You can create optimized builds for different platforms by
-		// specifying a different adapter
-		adapter: adapter(),
+	preprocess: preprocess(),
 
-		vite: {
-			server: {
-				cors: false
-			}
-		}
+	kit: {
+		adapter: adapter()
 	}
 };
+
+export default config;

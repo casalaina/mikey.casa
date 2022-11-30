@@ -1,9 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import GoogleAnalytics from '../utils/GoogleAnalytics.svelte';
-	import { page } from '$app/stores';
-	import Fingers from './components/Fingers.svelte';
+	import Fingers from './Fingers.svelte';
 
 	// mobile popup variables
 	let mobilePopUp;
@@ -17,6 +15,9 @@
 
 	let vh;
 	let bgText;
+
+	let base64 = 'bWlrZXlAY2FzYWxhaW5hLmNvbQ==';
+	let decodedEmail = atob(base64);
 
 	onMount(() => {
 		let supportsTouchEvents = () => {
@@ -49,49 +50,6 @@
 	});
 </script>
 
-<svelte:head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<title>Mikey Casalaina</title>
-
-	<!-- Primary Meta Tags -->
-	<title>Mikey Casalaina (mikey.casa/laina)</title>
-	<meta name="title" content="Mikey Casalaina (mikey.casa/laina)" />
-	<meta
-		name="description"
-		content="Personal website of Creative Coder, Mikey Casalaina, and an interactive version of the Cascading Pointing Hand Emoji Copypasta"
-	/>
-
-	<!-- Open Graph / Facebook -->
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://mikey.casa/laina" />
-	<meta property="og:title" content="Mikey Casalaina (mikey.casa/laina)" />
-	<meta
-		property="og:description"
-		content="Personal website of Creative Coder, Mikey Casalaina, and an interactive version of the Cascading Pointing Hand Emoji Copypasta"
-	/>
-	<meta property="og:image" content="https://mikey.casa/favicon/thumbnail.jpg" />
-
-	<!-- Twitter -->
-	<meta property="twitter:card" content="summary_large_image" />
-	<meta property="twitter:url" content="https://mikey.casa/laina" />
-	<meta property="twitter:title" content="Mikey Casalaina (mikey.casa/laina)" />
-	<meta
-		property="twitter:description"
-		content="Personal website of Creative Coder, Mikey Casalaina, and an interactive version of the Cascading Pointing Hand Emoji Copypasta"
-	/>
-	<meta property="twitter:image" content="https://mikey.casa/favicon/thumbnail.jpg" />
-
-	<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png" />
-	<link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png" />
-	<link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png" />
-	<link rel="mask-icon" href="../favicon/safari-pinned-tab.svg" color="#000000" />
-	<link rel="shortcut icon" href="../favicon/favicon.ico" />
-	<meta name="msapplication-TileColor" content="#da532c" />
-	<meta name="theme-color" content="#ffffff" />
-</svelte:head>
-
-<GoogleAnalytics {page} />
 <svelte:window bind:innerHeight={vh} />
 <div id="fadeWrap" class={ready ? 'active' : ''}>
 	<Fingers>
@@ -101,28 +59,31 @@
 				<p>I’m not sure who pointed you here, but I’m glad you found the way.</p>
 				<p>I’m Mikey, a developer, designer, and musician living and working in Amsterdam.</p>
 				<p>
-					I'm currently the Creative Engineering Director at <a href="https://wetransfer.com/">WeTransfer</a>, leading the team that builds
-					interactives and animations. I’ve worked on stuff like <a target="_blank" rel="noopener" href="https://colorpush.wetransfer.com">this</a>,
-					<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/11160943">this</a>,
-					<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/11685998">this</a>, and
-					<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/18127579">a</a>
-					<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/12725040">ton</a>
-					<a target="_blank" rel="noopener" href="https://wetransfer.com/wallpaper/19374023">more</a>.
+					I'm currently the Creative Engineering Director at <a
+						class="yellow"
+						target="_blank"
+						rel="noopener noreferrer"
+						href="https://wetransfer.com/">WeTransfer</a
+					>, leading the team that builds interactives and animations. I’ve worked on stuff like
+					<a class="blue" target="_blank" rel="noopener noreferrer" href="https://colorpush.wetransfer.com">this</a>,
+					<a class="green" target="_blank" rel="noopener noreferrer" href="https://wetransfer.com/wallpaper/11160943">this</a>,
+					<a class="red" target="_blank" rel="noopener noreferrer" href="https://wetransfer.com/wallpaper/11685998">this</a>, and
+					<a class="yellow" target="_blank" rel="noopener noreferrer" href="https://wetransfer.com/wallpaper/18127579">a</a>
+					<a class="blue" target="_blank" rel="noopener noreferrer" href="https://wetransfer.com/wallpaper/12725040">ton</a>
+					<a class="green" target="_blank" rel="noopener noreferrer" href="https://wetransfer.com/wallpaper/19374023">more</a>.
 				</p>
-				<p>Previously, I helped found the dev shop <a href="http://looprecur.com/" target="_blank">loop/recur</a>.</p>
 				<p>
-					I make music with the band <a href="http://naiveset.nl/" target="_blank">Naive Set</a>. Here’s
-					<a href="https://www.youtube.com/watch?v=eUuXFB4T23o" target="_blank">a video</a> we did with a giant sweater on guitar. That’s me singing, the
-					bald one in the middle.
+					Previously, I helped found the dev shop <a class="red" target="_blank" rel="noopener noreferrer" href="http://looprecur.com/">loop/recur</a
+					>.
 				</p>
 				<p>
-					<span class="blue"
-						>Not sure what else to say at this point. See what I did there? Point? But yeah, thanks for reading this far! Feel free to reach out and
-						say hello. My email address is <a
-							href="javascript:location='mailto:%5Cu0079%5Cu0065%5Cu0061%5Cu0068%5Cu0040%5Cu0068%5Cu0065%5Cu0079%5Cu002e%5Cu0063%5Cu006f%5Cu006d';void%200"
-							target="_blank">yeah@hey.com</a
-						>.</span
-					>
+					I make music with the band <a class="yellow" target="_blank" rel="noopener noreferrer" href="http://naiveset.nl/">Naive Set</a>. Here’s
+					<a class="green" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=eUuXFB4T23o">a video</a> we did with a giant
+					sweater on guitar. That’s me singing, the bald one in the middle.
+				</p>
+				<p>
+					Not sure what else to say at this point. See what I did there? Point? But yeah, thanks for reading this far! Feel free to reach out and say
+					hello. My email address is <a class="blue" href="mailto:{decodedEmail}">{decodedEmail}.</a>
 				</p>
 			</div>
 		</div>
@@ -139,6 +100,7 @@
 					<span class="blue">
 						<a
 							href="https://ideas.bywetransfer.com/story/once-you-start-noticing-the-backgrounds-of-things-it-can-be-hard-to-stop"
+							rel="noopener noreferrer"
 							target="_blank"
 							class="blue"
 							id="mobileLink"
@@ -244,7 +206,7 @@
 		}
 	}
 
-	:global a {
+	a {
 		color: #ea6180;
 		background-repeat: repeat;
 		background-position-x: 0;
@@ -259,33 +221,32 @@
 		text-decoration: none;
 		background-color: transparent;
 		-webkit-text-decoration-skip: objects;
-		background-image: url('../assets/wavy--red.svg');
+		background-image: url('$lib/wavy--red.svg');
 		transition: color 0.5s;
 	}
 
-	:global(a:hover) {
+	a:hover {
 		animation-play-state: running;
 	}
 
-	:global(a:nth-of-type(4n + 0)) {
+	a.red {
 		color: #ea6180;
-		background-image: url('../assets/wavy--red.svg');
+		background-image: url('$lib/wavy--red.svg');
 	}
 
-	:global(a:nth-of-type(4n + 1)) {
+	a.yellow {
 		color: #f8d68f;
-		background-image: url('../assets/wavy--yellow.svg');
+		background-image: url('$lib/wavy--yellow.svg');
 	}
 
-	:global(a:nth-of-type(4n + 2)) {
+	a.green {
 		color: #6dc999;
-		background-image: url('../assets/wavy--green.svg');
+		background-image: url('$lib/wavy--green.svg');
 	}
 
-	:global(a:nth-of-type(4n + 3)),
-	:global(.blue a) {
+	a.blue {
 		color: #4db7d0;
-		background-image: url('../assets/wavy--blue.svg');
+		background-image: url('$lib/wavy--blue.svg');
 	}
 
 	:global .line {

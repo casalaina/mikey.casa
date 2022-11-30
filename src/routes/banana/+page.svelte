@@ -25,10 +25,7 @@
 	</div>
 </div>
 
-<style lang="scss">
-	// normalize
-	@import '../../node_modules/normalize.css/normalize.css';
-
+<style lang="scss" global>
 	$posX: 50%; // x-position of background image
 	$posY: 50%; // y-position of background image
 	$wrapW: 100vw; // width of wrapper
@@ -36,17 +33,23 @@
 	$imgW: 4000; // enter the natural width in px of background image
 	$imgH: 2250; // enter the natural height in px of background image
 
+	html,
+	body,
 	#wrapper {
 		width: $wrapW;
 		height: $wrapH;
 		overflow: hidden;
+		top: 0;
+		left: 0;
+		padding: 0;
+		margin: 0;
 	}
 
 	#bg {
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		background-image: url('../assets/banana.jpg');
+		background-image: url('../../assets/banana.jpg');
 		background-size: cover;
 		background-position: $posX $posY;
 	}
@@ -88,12 +91,12 @@
 		border-radius: 50%;
 	}
 
-	#more {
-		position: absolute;
-		top: 100vh;
-		height: 100vh;
-		background-color: blue;
-		width: 100%;
-		z-index: 1;
-	}
+	// #more {
+	// 	position: absolute;
+	// 	top: 100vh;
+	// 	height: 100vh;
+	// 	background-color: blue;
+	// 	width: 100%;
+	// 	z-index: 1;
+	// }
 </style>
