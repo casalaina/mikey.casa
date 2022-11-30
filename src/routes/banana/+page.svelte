@@ -49,7 +49,7 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		background-image: url('../../assets/banana.jpg');
+		background-image: url('$lib/banana.jpg');
 		background-size: cover;
 		background-position: $posX $posY;
 	}

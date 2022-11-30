@@ -21,11 +21,15 @@
 
 	onMount(() => {
 		let supportsTouchEvents = () => {
-			return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+			return (
+				'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
+			);
 		};
 
 		let isMobile = () => {
-			return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+			return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+				navigator.userAgent
+			);
 		};
 
 		if (supportsTouchEvents()) {
@@ -53,7 +57,6 @@
 <svelte:window bind:innerHeight={vh} />
 <div id="fadeWrap" class={ready ? 'active' : ''}>
 	<Fingers>
-		<!-- {#if ready} -->
 		<div id="bgText" bind:this={bgText}>
 			<div>
 				<p>I’m not sure who pointed you here, but I’m glad you found the way.</p>
@@ -65,38 +68,93 @@
 						rel="noopener noreferrer"
 						href="https://wetransfer.com/">WeTransfer</a
 					>, leading the team that builds interactives and animations. I’ve worked on stuff like
-					<a class="blue" target="_blank" rel="noopener noreferrer" href="https://colorpush.wetransfer.com">this</a>,
-					<a class="green" target="_blank" rel="noopener noreferrer" href="https://wetransfer.com/wallpaper/11160943">this</a>,
-					<a class="red" target="_blank" rel="noopener noreferrer" href="https://wetransfer.com/wallpaper/11685998">this</a>, and
-					<a class="yellow" target="_blank" rel="noopener noreferrer" href="https://wetransfer.com/wallpaper/18127579">a</a>
-					<a class="blue" target="_blank" rel="noopener noreferrer" href="https://wetransfer.com/wallpaper/12725040">ton</a>
-					<a class="green" target="_blank" rel="noopener noreferrer" href="https://wetransfer.com/wallpaper/19374023">more</a>.
-				</p>
-				<p>
-					Previously, I helped found the dev shop <a class="red" target="_blank" rel="noopener noreferrer" href="http://looprecur.com/">loop/recur</a
+					<a
+						class="blue"
+						target="_blank"
+						rel="noopener noreferrer"
+						href="https://colorpush.wetransfer.com">this</a
+					>,
+					<a
+						class="green"
+						target="_blank"
+						rel="noopener noreferrer"
+						href="https://wetransfer.com/wallpaper/11160943">this</a
+					>,
+					<a
+						class="red"
+						target="_blank"
+						rel="noopener noreferrer"
+						href="https://wetransfer.com/wallpaper/11685998">this</a
+					>, and
+					<a
+						class="yellow"
+						target="_blank"
+						rel="noopener noreferrer"
+						href="https://wetransfer.com/wallpaper/18127579">a</a
+					>
+					<a
+						class="blue"
+						target="_blank"
+						rel="noopener noreferrer"
+						href="https://wetransfer.com/wallpaper/12725040">ton</a
+					>
+					<a
+						class="green"
+						target="_blank"
+						rel="noopener noreferrer"
+						href="https://wetransfer.com/wallpaper/19374023">more</a
 					>.
 				</p>
 				<p>
-					I make music with the band <a class="yellow" target="_blank" rel="noopener noreferrer" href="http://naiveset.nl/">Naive Set</a>. Here’s
-					<a class="green" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=eUuXFB4T23o">a video</a> we did with a giant
-					sweater on guitar. That’s me singing, the bald one in the middle.
+					Previously, I helped found the dev shop <a
+						class="red"
+						target="_blank"
+						rel="noopener noreferrer"
+						href="http://looprecur.com/">loop/recur</a
+					>.
 				</p>
 				<p>
-					Not sure what else to say at this point. See what I did there? Point? But yeah, thanks for reading this far! Feel free to reach out and say
-					hello. My email address is <a class="blue" href="mailto:{decodedEmail}">{decodedEmail}.</a>
+					I make music with the band <a
+						class="yellow"
+						target="_blank"
+						rel="noopener noreferrer"
+						href="http://naiveset.nl/">Naive Set</a
+					>. Here’s
+					<a
+						class="green"
+						target="_blank"
+						rel="noopener noreferrer"
+						href="https://www.youtube.com/watch?v=eUuXFB4T23o">a video</a
+					> we did with a giant sweater on guitar. That’s me singing, the bald one in the middle.
+				</p>
+				<p>
+					Not sure what else to say at this point. See what I did there? Point? But yeah, thanks for
+					reading this far! Feel free to reach out and say hello. My email address is <a
+						class="blue"
+						href="mailto:{decodedEmail}">{decodedEmail}.</a
+					>
 				</p>
 			</div>
 		</div>
-		<!-- {/if} -->
 		{#if mobilePopUpActive}
-			<div id="mobileOverlay" on:click={() => (mobilePopUpActive = false)} transition:fade />
-			<div id="mobilePopUp" bind:this={mobilePopUp} class={mobilePopUpActive ? 'active' : ''} transition:fade>
+			<div
+				id="mobileOverlay"
+				on:click={() => (mobilePopUpActive = false)}
+				on:keydown={() => (mobilePopUpActive = false)}
+				transition:fade
+			/>
+			<div
+				id="mobilePopUp"
+				bind:this={mobilePopUp}
+				class={mobilePopUpActive ? 'active' : ''}
+				transition:fade
+			>
 				<div class="inner">
 					<div role="button" class="close" href />
 					<span class="emoji">🤔</span>
 					<br />
-					Hmmm. WeTransfer is not terribly mobile-friendly, so to try out these links, you'll need to hop on a laptop. Sorry! In the meantime, you can
-					read something I wrote about WeTransfer wallpapers
+					Hmmm. WeTransfer is not terribly mobile-friendly, so to try out these links, you'll need to
+					hop on a laptop. Sorry! In the meantime, you can read something I wrote about WeTransfer wallpapers
 					<span class="blue">
 						<a
 							href="https://ideas.bywetransfer.com/story/once-you-start-noticing-the-backgrounds-of-things-it-can-be-hard-to-stop"
@@ -125,7 +183,8 @@
 		box-sizing: border-box;
 	}
 
-	$sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, Arial, sans-serif;
+	$sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, 'Segoe UI', Roboto,
+		Oxygen-Sans, Ubuntu, Cantarell, Arial, sans-serif;
 
 	$xs: '(max-width: 599px)';
 	$sm: '(min-width: 600px)';
