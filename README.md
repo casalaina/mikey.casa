@@ -1,22 +1,14 @@
-# create-svelte
+# mikey.casa/laina
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+My personal website, [mikey.casa/laina](https://mikey.casa/laina).
 
-## Creating a project
+An interactive version of the [Cascading Pointing Hand Emoji Copypasta](https://knowyourmeme.com/memes/cascading-pointing-hand-emoji-copypasta).
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+Built w/ [SvelteKit](https://github.com/sveltejs/kit)
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Start a development server:
 
 ```bash
 npm run dev
@@ -29,6 +21,14 @@ npm run dev -- --open
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+## Deployed
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Via [Netlify](https://www.netlify.com/)
+
+[![CC BY 4.0][cc-by-shield]][cc-by]
+
+This work is licensed under a
+[Creative Commons Attribution 4.0 International License][cc-by].
+
+[cc-by]: http://creativecommons.org/licenses/by/4.0/
+[cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
