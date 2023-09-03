@@ -237,7 +237,7 @@
 		font-size: 1.075em;
 		background-color: #000;
 		color: #888;
-		padding: 5rem 3.5rem;
+		padding: 5rem 2rem;
 		z-index: 1;
 		background-size: cover;
 		top: 0;

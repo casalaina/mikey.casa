@@ -57,8 +57,20 @@
 			}
 
 			//add Fingers
-			for (let y = grid; y <= vh - height; y += grid) {
-				for (let x = grid; x <= vw - width; x += grid) {
+			let padding = 20; // set your padding value
+
+			let xStart = grid / 2;
+			let xEnd = vw - width;
+			let yStart = grid / 2 + padding;
+			let yEnd = vh - height - padding;
+
+			if (vw > 600) {
+				xStart += padding;
+				xEnd -= padding;
+			}
+
+			for (let y = yStart; y <= yEnd; y += grid) {
+				for (let x = xStart; x <= xEnd; x += grid) {
 					let line = document.createElement('div');
 					fingerWrap.append(line);
 					line.style.width = width + 'px';
