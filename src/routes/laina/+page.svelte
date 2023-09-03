@@ -60,14 +60,23 @@
 		<div id="bgText" bind:this={bgText}>
 			<div>
 				<p>I’m not sure who pointed you here, but I’m glad you found the way.</p>
-				<p>I’m Mikey, a developer, designer, and musician living and working in Amsterdam.</p>
 				<p>
-					I'm currently the Creative Engineering Director at <a
+					I’m Mikey, a developer, designer, and musician living and working in Amsterdam. I'm
+					currently the Creative Engineering Director at <a
+						class="blue"
+						target="_blank"
+						rel="noopener noreferrer"
+						href="https://craft.do/">Craft</a
+					>, an award-winning, AI-powered, collaborative document app.
+				</p>
+				<p>
+					Previously, I was at <a
 						class="yellow"
 						target="_blank"
 						rel="noopener noreferrer"
 						href="https://wetransfer.com/">WeTransfer</a
-					>, leading the team that builds interactives and animations. I’ve worked on stuff like
+					>
+					leading the team that built interactives and animations, working on stuff like
 					<a
 						class="blue"
 						target="_blank"
@@ -106,7 +115,7 @@
 					>.
 				</p>
 				<p>
-					Previously, I helped found the dev shop <a
+					Before that, I helped found the dev shop <a
 						class="red"
 						target="_blank"
 						rel="noopener noreferrer"
@@ -195,7 +204,7 @@
 	:global html {
 		overflow: hidden;
 		position: fixed;
-		font-size: 1.05vh;
+		font-size: 1.03vh;
 		background-color: black;
 		width: 100vw;
 		height: 100vh;
@@ -228,7 +237,7 @@
 		font-size: 1.075em;
 		background-color: #000;
 		color: #888;
-		padding: 3.5rem 3.5rem;
+		padding: 5rem 3.5rem;
 		z-index: 1;
 		background-size: cover;
 		top: 0;
@@ -246,6 +255,7 @@
 		@media #{$sm} {
 			column-count: 2;
 			padding: 10%;
+			padding: 3.5rem;
 		}
 
 		@media #{$lg} {
