@@ -151,6 +151,8 @@
 				on:click={() => (mobilePopUpActive = false)}
 				on:keydown={() => (mobilePopUpActive = false)}
 				transition:fade
+				role="button"
+				tabindex="2"
 			/>
 			<div
 				id="mobilePopUp"
