@@ -1,0 +1,22 @@
+// Responsive mixins
+@use "sass:map";
+
+$breakpoints: (
+  "sm": 600,
+  "md": 700,
+  "lg": 1040,
+  "xl": 1680,
+);
+
+@mixin from($breakpoint) {
+  @media screen and (min-width: #{map.get($breakpoints, $breakpoint)}px) {
+    @content;
+  }
+}
+
+@mixin until($breakpoint) {
+  /* Max-width subtracts 1px from the breakpoint */
+  @media screen and (max-width: #{map.get($breakpoints, $breakpoint)-1}px) {
+    @content;
+  }
+}

@@ -1,27 +1,20 @@
 {
-	"name": "mikey.casa",
-	"version": "2.0.0",
-	"repository": {
-		"type": "git",
-		"url": "hhttps://github.com/casalaina/mikey.casa.git"
-	},
-	"private": true,
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write ."
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-netlify": "^4.2.0",
-		"@sveltejs/kit": "^2.0.0",
-		"@sveltejs/vite-plugin-svelte": "^3.1.0",
-		"sass": "^1.76.0",
-		"svelte": "^4.2.7",
-		"vite": "^5.0.3"
-	},
-	"type": "module"
+  "name": "fresh",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^3.2.5",
+    "@sveltejs/adapter-netlify": "^4.3.4",
+    "@sveltejs/kit": "^2.6.1",
+    "@sveltejs/vite-plugin-svelte": "^3.1.2",
+    "sass": "^1.79.4",
+    "svelte": "^4.2.19",
+    "vite": "^5.4.8"
+  },
+  "type": "module"
 }

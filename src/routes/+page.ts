@@ -1,5 +1,5 @@
-import { redirect } from '@sveltejs/kit';
+import { redirect } from "@sveltejs/kit";
 // Redirect this route to /hello
 export function load() {
-	throw redirect(302, '/laina');
+  throw redirect(302, "/laina");
 }
