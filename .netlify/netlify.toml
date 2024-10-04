@@ -1,0 +1,59 @@
+functionsDirectory = "/Users/casalaina/Sites/mikey.casa/functions"
+functionsDirectoryOrigin = "ui"
+redirectsOrigin = "config"
+plugins = []
+
+[functions]
+
+[functions."*"]
+
+[build]
+publish = "/Users/casalaina/Sites/mikey.casa/build"
+publishOrigin = "ui"
+commandOrigin = "ui"
+command = "npm run build"
+functions = "/Users/casalaina/Sites/mikey.casa/functions"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[[headers]]
+for = "/_app/immutable/*"
+
+[headers.values]
+cache-control = "public, immutable, max-age=31536000"
+
+[[redirects]]
+from = "*"
+to = "/.netlify/functions/sveltekit-render"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/*"
+to = "/laina"
+status = 302.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]

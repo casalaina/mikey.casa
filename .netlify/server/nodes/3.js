@@ -1,8 +1,8 @@
 
 
 export const index = 3;
-export const component = async () => (await import('../entries/pages/banana/_page.svelte.js')).default;
-export const file = '_app/immutable/components/pages/banana/_page.svelte-5fc015e8.js';
-export const imports = ["_app/immutable/components/pages/banana/_page.svelte-5fc015e8.js","_app/immutable/chunks/index-6643d1c4.js"];
-export const stylesheets = ["_app/immutable/assets/_page-4d5619c3.css"];
+let component_cache;
+export const component = async () => component_cache ??= (await import('../entries/pages/banana/_page.svelte.js')).default;
+export const imports = ["_app/immutable/nodes/3.D6wn2pdL.js","_app/immutable/chunks/scheduler.53O4NPpc.js","_app/immutable/chunks/index.BBLcUCsp.js"];
+export const stylesheets = ["_app/immutable/assets/3.CD13t2ko.css"];
 export const fonts = [];

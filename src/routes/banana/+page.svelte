@@ -17,7 +17,7 @@
   });
 </script>
 
-<div id="wrapper" on:mousemove={handleMousemove}>
+<div id="wrapper" on:mousemove={handleMousemove} role="main">
   <div id="bg" />
   <div id="pinboard">
     <div class="eye" id="eye1"><div class="pupil" bind:this={pupil} /></div>
@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<style lang="scss" global>
+<style lang="scss">
   $posX: 50%; // x-position of background image
   $posY: 50%; // y-position of background image
   $wrapW: 100vw; // width of wrapper
@@ -33,8 +33,8 @@
   $imgW: 4000; // enter the natural width in px of background image
   $imgH: 2250; // enter the natural height in px of background image
 
-  html,
-  body,
+  :globa(html),
+  :global(body),
   #wrapper {
     width: $wrapW;
     height: $wrapH;

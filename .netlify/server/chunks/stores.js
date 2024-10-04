@@ -1,46 +1,40 @@
-import { g as getContext } from "./index.js";
-const getStores = () => {
-  const stores = getContext("__svelte__");
-  const readonly_stores = {
-    page: {
-      subscribe: stores.page.subscribe
-    },
-    navigating: {
-      subscribe: stores.navigating.subscribe
-    },
-    updated: stores.updated
-  };
-  Object.defineProperties(readonly_stores, {
-    preloading: {
-      get() {
-        console.error("stores.preloading is deprecated; use stores.navigating instead");
-        return {
-          subscribe: stores.navigating.subscribe
-        };
-      },
-      enumerable: false
-    },
-    session: {
-      get() {
-        removed_session();
-        return {};
-      },
-      enumerable: false
+import { w as writable } from "./index2.js";
+const isMobile = writable(false);
+const isIOS = writable(false);
+const isKeyboardUser = writable(false);
+const popoverVisible = writable(false);
+const fingersVisible = writable(true);
+function updateIsMobile() {
+  if (typeof window !== "undefined") {
+    const touchOnly = "ontouchstart" in window && !window.matchMedia("(hover: hover)").matches;
+    const narrowWidth = window.innerWidth <= 768;
+    isMobile.set(touchOnly || narrowWidth);
+  }
+}
+function updateIsIOS() {
+  if (typeof window !== "undefined") {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    isIOS.set(/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream);
+  }
+}
+updateIsMobile();
+updateIsIOS();
+if (typeof window !== "undefined") {
+  window.addEventListener("resize", () => {
+    updateIsMobile();
+  });
+}
+if (typeof window !== "undefined") {
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Tab") {
+      isKeyboardUser.set(true);
     }
   });
-  return readonly_stores;
-};
-const page = {
-  subscribe(fn) {
-    const store = getStores().page;
-    return store.subscribe(fn);
-  }
-};
-function removed_session() {
-  throw new Error(
-    "stores.session is no longer available. See https://github.com/sveltejs/kit/discussions/5883"
-  );
 }
 export {
-  page as p
+  isMobile as a,
+  isKeyboardUser as b,
+  fingersVisible as f,
+  isIOS as i,
+  popoverVisible as p
 };
