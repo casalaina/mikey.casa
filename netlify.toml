@@ -2,3 +2,6 @@
   from = "/*" 
   to = "/laina" 
   status = 302
+
+[build]
+  environment = { NODE_VERSION = "22.5.1" }
