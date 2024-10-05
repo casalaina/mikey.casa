@@ -4,7 +4,18 @@ export const isMobile = writable(false);
 export const isIOS = writable(false);
 export const isKeyboardUser = writable(false);
 
-export const popoverVisible = writable(false);
+export const popoverState = writable({
+  visible: false,
+  content: '',
+  x: 0,
+  y: 0,
+  colorClass: '',
+  link: '',
+  linkName: '',
+  focusTrigger: null,
+});
+
+// Add this line to export fingersVisible
 export const fingersVisible = writable(true);
 
 function updateIsMobile() {
@@ -28,22 +39,18 @@ updateIsIOS();
 
 // Reassess on resize
 if (typeof window !== "undefined") {
-  window.addEventListener("resize", () => {
-    updateIsMobile();
-  });
+  window.addEventListener("resize", updateIsMobile);
 }
 
-// Check for keyboard user
+// Detect keyboard usage
 if (typeof window !== "undefined") {
-  // Listen for 'keydown' events to detect keyboard navigation
   window.addEventListener("keydown", (event) => {
     if (event.key === "Tab") {
       isKeyboardUser.set(true);
     }
   });
 
-  // Listen for 'mousedown' to reset to non-keyboard usage
-  // window.addEventListener("mousedown", () => {
-  //   isKeyboardUser.set(false);
-  // });
+  window.addEventListener("mousedown", () => {
+    isKeyboardUser.set(false);
+  });
 }

@@ -1,8 +1,7 @@
 <script>
-  import { createEventDispatcher } from "svelte";
-  import { isMobile, isKeyboardUser } from "~/lib/stores.js";
+  import { createEventDispatcher, onMount, onDestroy } from "svelte";
+  import { popoverState, isMobile, isKeyboardUser } from "~/lib/stores.js";
 
-  // Props
   export let href = "";
   export let target = "_self";
   export let colorClass = "";
@@ -13,50 +12,65 @@
   const dispatch = createEventDispatcher();
 
   function handleClick(event) {
-    if ($isMobile || $isKeyboardUser) {
-      event.preventDefault();
+    if ($isMobile) {
+      event.preventDefault(); // Prevent default for mobile touch events
+    } else if (tag === "a" && href) {
+      popoverState.update((state) => ({ ...state, visible: false }));
     }
-    dispatch("hover", { event, key: dataPopoverKey, href, linkName });
+    dispatch("activate", { event, key: dataPopoverKey, href, linkName, colorClass });
   }
 
   function handleKeyDown(event) {
-    if (event.key === "Enter") {
-      handleClick(event);
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      if ($isKeyboardUser) {
+        popoverState.update((state) => ({
+          ...state,
+          visible: true,
+          content: state.content,
+          colorClass,
+          link: href,
+          linkName,
+        }));
+      }
+      dispatch("activate", { event, key: dataPopoverKey, href, linkName, colorClass });
     }
   }
 
-  function debounce(func, delay) {
-    let timer;
-    return function (...args) {
-      clearTimeout(timer);
-      timer = setTimeout(() => func.apply(this, args), delay);
-    };
+  function handleMouseEnter(event) {
+    if (!$isMobile) {
+      dispatch("hover", { event, type: "mouseenter", key: dataPopoverKey, href, linkName, colorClass });
+    }
   }
 
-  const handleMouse = debounce((event) => {
-    if (!$isKeyboardUser && (event.type === "mouseenter" || event.type === "mousemove")) {
-      dispatch("hover", { event, key: dataPopoverKey, href, linkName });
-    } else if (!$isKeyboardUser && event.type === "mouseleave") {
-      dispatch("hover", { event, key: dataPopoverKey, close: true });
+  function handleMouseLeave(event) {
+    if (!$isMobile) {
+      dispatch("hover", { event, type: "mouseleave", key: dataPopoverKey, href, linkName, colorClass });
     }
-  }, 10);
+  }
+
+  function handleMouseMove(event) {
+    if (!$isMobile) {
+      dispatch("hover", { event, type: "mousemove", key: dataPopoverKey, href, linkName, colorClass });
+    }
+  }
+
+  function handleVisibilityChange() {
+    if (document.hidden) {
+      popoverState.update((state) => ({ ...state, visible: false }));
+    }
+  }
+
+  onMount(() => {
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+  });
+
+  onDestroy(() => {
+    document.removeEventListener("visibilitychange", handleVisibilityChange);
+  });
 </script>
 
-<svelte:element
-  this={tag === "a" ? "a" : "span"}
-  class="hover {colorClass}"
-  href={tag === "a" ? href : undefined}
-  target={tag === "a" ? target : undefined}
-  data-popover-key={dataPopoverKey}
-  tabindex="0"
-  on:click={handleClick}
-  on:keydown={handleKeyDown}
-  on:focus={handleMouse}
-  on:blur={handleMouse}
-  on:mouseenter={handleMouse}
-  on:mouseleave={handleMouse}
-  on:mousemove={handleMouse}
-  role={tag === "a" ? undefined : "button"}>
+<svelte:element this={tag} class="hover {colorClass}" href={tag === "a" ? href : undefined} target={tag === "a" ? target : undefined} data-popover-key={dataPopoverKey} tabindex={tag === "a" ? undefined : "0"} on:click={handleClick} on:keydown={handleKeyDown} on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave} on:mousemove={handleMouseMove} role={tag === "a" ? undefined : "button"}>
   <span class="inner">
     <slot />
   </span>
@@ -90,11 +104,6 @@
     text-decoration: none;
     -webkit-text-decoration-skip: objects;
     font-weight: 700;
-
-    &:focus {
-      outline: 2px solid #4db7d0; // Use a visible focus outline
-      outline-offset: 4px; // Move the outline away from the element
-    }
 
     .inner {
       clip-path: inset(0 0 -20% 0);
@@ -147,5 +156,14 @@
     .inner:after {
       background-image: url("~/assets/wavy--blue.svg");
     }
+  }
+
+  :global(.hover:focus) {
+    outline: none;
+  }
+
+  :global(.hover:focus-visible) {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
   }
 </style>

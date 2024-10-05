@@ -1,66 +1,39 @@
 <script>
   import { fade } from "svelte/transition";
-  import { onMount, createEventDispatcher } from "svelte";
-  import { popoverVisible, isKeyboardUser } from "~/lib/stores.js";
-
-  export let content = "";
-  export let colorClass = "";
-  export let href = null;
-  export let linkName = "";
-
-  const dispatch = createEventDispatcher();
+  import { onMount } from "svelte";
+  import { popoverState, isKeyboardUser } from "~/lib/stores.js";
 
   let buttonRef;
 
-  // Set popoverVisible to true and focus the button on mount
   onMount(() => {
-    $popoverVisible = true;
-
-    // Focus the button when the popover opens
+    // Focus the 'See More' button if keyboard user
     if (buttonRef && $isKeyboardUser) {
       buttonRef.focus();
     }
-
-    // Add a keydown event listener to handle 'Tab' and close the popover
-    const handleKeydown = (event) => {
-      if (event.key === "Tab") {
-        event.preventDefault(); // Prevent default tab behavior
-        closePopover();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeydown);
-
-    // Clean up the event listener when the component is destroyed
-    return () => {
-      window.removeEventListener("keydown", handleKeydown);
-    };
   });
 
   function closePopover() {
-    dispatch("close");
-    $popoverVisible = false;
+    popoverState.update((state) => ({ ...state, visible: false }));
   }
 
-  function handleButtonClick(event) {
-    event.stopPropagation();
-    if (href) {
-      window.open(href, "_blank");
+  function handleButtonClick() {
+    if ($popoverState.link) {
+      window.open($popoverState.link, "_blank");
     }
+    closePopover();
   }
 </script>
 
 <div transition:fade>
   <div class="overlay" on:click={closePopover} aria-hidden="true"></div>
-
-  <!-- Popover content centered in the viewport -->
-  <div class="popover popoverMobile {colorClass}" role="dialog">
+  <div class="popover popoverMobile {$popoverState.colorClass}" role="dialog">
+    <button class="close-button" on:click={closePopover}>×</button>
     <div class="popover-content">
-      {@html content}
+      {@html $popoverState.content}
     </div>
-    {#if href && linkName}
+    {#if $popoverState.link && $popoverState.linkName}
       <button class="see-more-button" tabindex="0" on:click={handleButtonClick} bind:this={buttonRef}>
-        {linkName}
+        {$popoverState.linkName}
       </button>
     {/if}
   </div>
@@ -84,7 +57,7 @@
     transform: translate(-50%, -50%);
     background-color: black;
     color: #f4f0e8;
-    padding: 2rem;
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
     width: 90vw;
     height: auto;
     max-width: 500px;
@@ -132,7 +105,8 @@
     pointer-events: all;
 
     &:focus-visible {
-      outline: 3px solid white;
+      outline: 2px solid #4db7d0;
+      outline-offset: 2px;
     }
   }
 
@@ -144,5 +118,18 @@
   :global(.popoverMobile .caption) {
     font-size: 3em;
     margin: 1rem 0 0 0;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: #f4f0e8;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    line-height: 1;
   }
 </style>

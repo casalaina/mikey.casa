@@ -1,20 +1,15 @@
 <script>
-  import { onMount, afterUpdate } from "svelte";
+  import { afterUpdate } from "svelte";
   import { fade } from "svelte/transition";
+  import { popoverState } from "~/lib/stores.js";
 
-  export let content = "";
-  export let x = 0; // Mouse x position
-  export let y = 0; // Mouse y position
-  export let colorClass = "";
-
-  let alignmentClass = "";
   let popoverElement;
   let popoverHeight = 0;
   let popoverWidth = 0;
-  let adjustedX = x;
-  let adjustedY = y;
+  let adjustedX = 0;
+  let adjustedY = 0;
 
-  // Ensure popoverHeight and popoverWidth are up-to-date after DOM updates
+  // Recalculate popover dimensions and adjust position after updates
   afterUpdate(() => {
     if (popoverElement) {
       popoverHeight = popoverElement.offsetHeight || 0;
@@ -25,39 +20,44 @@
 
   // Clamp the popover position to ensure it stays inside the viewport
   function clampPosition() {
+    const x = $popoverState.x;
+    const y = $popoverState.y;
     const distanceToRight = window.innerWidth - x;
     const distanceToBottom = window.innerHeight - y;
 
     // Clamp x position to ensure the popover does not overflow on the right
     if (distanceToRight < popoverWidth) {
-      adjustedX = Math.max(20, window.innerWidth - popoverWidth - 20); // Clamping X, adding padding from the right edge
+      adjustedX = Math.max(20, window.innerWidth - popoverWidth - 20);
     } else {
       adjustedX = x;
     }
 
     // Clamp y position to ensure the popover does not overflow on the bottom
     if (distanceToBottom < popoverHeight) {
-      adjustedY = Math.max(20, window.innerHeight - popoverHeight - 20); // Clamping Y, adding padding from the bottom edge
+      adjustedY = Math.max(20, window.innerHeight - popoverHeight - 20);
     } else {
       adjustedY = y;
     }
   }
 
-  // Initial update of position
-  $: clampPosition();
+  // Update position whenever popoverState changes
+  $: if ($popoverState.visible) {
+    clampPosition();
+  }
 </script>
 
 <!-- Popover element with dynamic positioning -->
 <div
   bind:this={popoverElement}
-  class="popover popoverStandard {alignmentClass} {colorClass}"
+  class="popover popoverStandard {$popoverState.colorClass}"
   style="
-    --x: {adjustedX}px;
-    --y: {adjustedY}px;
+    left: 0;
+    top: 0;
+    transform: translate({adjustedX}px, {adjustedY}px);
   "
   in:fade={{ delay: 500 }}
   out:fade>
-  {@html content}
+  {@html $popoverState.content}
 </div>
 
 <style lang="scss">
