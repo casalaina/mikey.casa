@@ -24,6 +24,21 @@
 
   const emojis = ["👉🏻", "👉🏼", "👉🏽", "👉🏾", "👉🏿"];
 
+  let lastInteractionTime = 0;
+  const INTERACTION_TIMEOUT = 1000; // 1 second
+
+  function getFocusedElementPosition() {
+    const focusedElement = document.activeElement;
+    if (focusedElement && focusedElement !== document.body) {
+      const rect = focusedElement.getBoundingClientRect();
+      return {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+      };
+    }
+    return null;
+  }
+
   onMount(() => {
     vw = window.innerWidth;
     vh = window.innerHeight;
@@ -109,10 +124,21 @@
 
     // Update fingers
     update = () => {
+      const currentTime = Date.now();
+      let targetX, targetY;
+
+      if (currentTime - lastInteractionTime > INTERACTION_TIMEOUT) {
+        targetX = getFocusedElementPosition()?.x ?? mouse.x;
+        targetY = getFocusedElementPosition()?.y ?? mouse.y;
+      } else {
+        targetX = mouse.x;
+        targetY = mouse.y;
+      }
+
       for (let i = 0; i < lines.length; i++) {
         let line = lines[i];
-        let dx = mouse.x - line.cx;
-        let dy = mouse.y - line.cy;
+        let dx = targetX - line.cx;
+        let dy = targetY - line.cy;
         let transform = "rotate(" + Math.atan2(dy, dx) + "rad)";
         line.element.style.transform = transform;
 
@@ -145,8 +171,10 @@
 
       // Update light position
       if (light) {
-        light.style.cssText = `transform: translate(${mouse.x - 250}px, ${mouse.y - 250}px)`;
+        light.style.cssText = `transform: translate(${targetX - 250}px, ${targetY - 250}px)`;
       }
+
+      lastInteractionTime = currentTime;
     };
 
     makeFingers();
@@ -154,7 +182,18 @@
   });
 </script>
 
-<svelte:window on:resize={makeFingers} bind:innerWidth={vw} bind:innerHeight={vh} />
+<svelte:window
+  on:resize={makeFingers}
+  on:mousemove={mouseMove}
+  on:touchmove={touchMove}
+  on:focusin={() => {
+    lastInteractionTime = 0;
+    if (!requestId) {
+      requestId = requestAnimationFrame(update);
+    }
+  }}
+  bind:innerWidth={vw}
+  bind:innerHeight={vh} />
 <div id="outer" on:mousemove={mouseMove} on:touchmove={touchMove} class={$fingersVisible ? "" : "hideFingers"} aria-hidden="true">
   <div id="inner">
     <FingersToggle />

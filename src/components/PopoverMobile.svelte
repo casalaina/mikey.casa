@@ -66,22 +66,22 @@
     z-index: 10;
     border-radius: 2rem;
     line-height: 1.2;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
     &.red {
-      box-shadow: 10px 10px 0 #ea6180;
+      box-shadow: 4px 6px 0 #ea6180;
     }
 
     &.yellow {
-      box-shadow: 10px 10px 0 #f8d68f;
+      box-shadow: 4px 6px 0 #f8d68f;
     }
 
     &.green {
-      box-shadow: 10px 10px 0 #6dc999;
+      box-shadow: 4px 6px 0 #6dc999;
     }
 
     &.blue {
-      box-shadow: 10px 10px 0 #4db7d0;
+      box-shadow: 4px 6px 0 #4db7d0;
     }
   }
 
