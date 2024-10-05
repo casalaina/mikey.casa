@@ -226,7 +226,7 @@
 
   #inner {
     margin: 0;
-    padding-top: 5rem;
+    padding-top: 3rem;
     width: 100vw;
     height: 100vh;
     top: 0;
@@ -240,7 +240,7 @@
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 
-    @include from(md) {
+    @include from(sm) {
       padding-top: 0;
     }
   }

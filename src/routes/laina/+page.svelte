@@ -187,7 +187,7 @@
     position: absolute;
     background-color: #000;
     color: #f4f0e8;
-    padding: 9rem 2rem;
+    padding: 7rem 2rem;
     z-index: 1;
     background-size: cover;
     top: 0;
@@ -206,7 +206,7 @@
 
     @include from(sm) {
       column-count: 2;
-      padding: 3.5rem;
+      padding: 5rem;
     }
   }
 
