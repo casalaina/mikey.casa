@@ -25,7 +25,7 @@
     tfi: "<img src='img/tfi.jpg' /><p class='caption'>200 year old insitution with his giant marble Ben Franklin greeting you on the way in. I got to perform on stage, blowing up stuff and high fiving kids.</p>",
     meevee: "<img src='img/meevee.jpg' /><p class='caption'>Combining my shared love of tech, music, and education to bring something new to life.</p>",
     more: "<p>Fine, go ahead and click to see a little intro video.</p>",
-    point: "<p>This is pretty much the exact same “point” pun I made at the beginning. Sorry.</p>",
+    point: "<p>This is a “point” pun. Because of all the pointing fingers. Sorry.</p>",
     email: "<p>I legit love getting email. Seriously, send me something, don't be shy!</p>",
   };
   function handleHover(event) {
