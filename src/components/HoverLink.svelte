@@ -14,10 +14,12 @@
   function handleClick(event) {
     if ($isMobile) {
       event.preventDefault(); // Prevent default for mobile touch events
+      dispatch("activate", { event, key: dataPopoverKey, href, linkName, colorClass });
     } else if (tag === "a" && href) {
       popoverState.update((state) => ({ ...state, visible: false }));
+      dispatch("activate", { event, key: dataPopoverKey, href, linkName, colorClass });
     }
-    dispatch("activate", { event, key: dataPopoverKey, href, linkName, colorClass });
+    // Do nothing for non-anchor tags on desktop
   }
 
   function handleKeyDown(event) {

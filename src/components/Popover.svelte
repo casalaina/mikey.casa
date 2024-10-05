@@ -96,7 +96,6 @@
 
   :global(.popover p) {
     font-size: 1em;
-    margin: 1rem 0 0 0;
   }
 
   :global(.popover .caption) {
