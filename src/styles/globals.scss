@@ -44,15 +44,15 @@ html {
   -moz-osx-font-smoothing: grayscale;
 
   @include from(sm) {
-    font-size: 1.15vw;
+    font-size: 1.1vw;
   }
 
   @include from(md) {
-    font-size: 1vw;
+    font-size: .95vw;
   }
 
   @include from(lg) {
-    font-size: 0.8vw;
+    font-size: 0.785vw;
   }
 
   @include from(xl) {
