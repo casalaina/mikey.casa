@@ -145,7 +145,7 @@
         <p style="break-before: column;">
           I'm currently working on something called
           <HoverLink tag="a" href="https://meev.ee" linkName="Check out Meevee" target="_blank" colorClass="yellow" dataPopoverKey="meevee" on:activate={handleActivate} on:hover={handleHover} on:focus={handleFocus} on:blur={handleBlur}>Meevee</HoverLink>, which I think will help parents and kids use screen time for good. But
-          <HoverLink tag="a" href="https://www.veed.io/view/7e44bab8-c991-489b-b0ff-06faf524e51e" linkName="Watch the video" target="_blank" colorClass="red" dataPopoverKey="more" on:activate={handleActivate} on:hover={handleHover} on:focus={handleFocus} on:blur={handleBlur}>more</HoverLink> on that coming soon!
+          <HoverLink tag="a" href="https://meev.ee/fams?utc_source=mikey" linkName="Join our Founding Families!" target="_blank" colorClass="red" dataPopoverKey="more" on:activate={handleActivate} on:hover={handleHover} on:focus={handleFocus} on:blur={handleBlur}>more</HoverLink> on that coming soon!
         </p>
         <p>
           Not sure what else to say at this
