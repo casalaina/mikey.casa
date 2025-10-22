@@ -182,7 +182,6 @@
 
   #bgText {
     font-size: 3.3rem;
-    width: 100vw;
     height: 100%;
     position: absolute;
     background-color: #000;
@@ -206,7 +205,13 @@
 
     @include from(sm) {
       column-count: 2;
+      column-gap: 3rem;
       padding: 5rem;
+    }
+
+    @include from(lg) {
+      column-gap: 5rem;
+      padding: 5rem 7rem;
     }
   }
 
